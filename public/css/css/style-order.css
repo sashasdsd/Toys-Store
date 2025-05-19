@@ -1,0 +1,1232 @@
+@charset "UTF-8";
+.cart-modal {
+  z-index: 10;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0.5s ease, opacity 0.5s ease;
+}
+
+.cart-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-modal .cart-header {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-bottom: 6px;
+}
+
+.cart-modal .cart-header h2 {
+  margin-left: 20px;
+  margin-top: 10px;
+  display: flex;
+  align-self: start;
+  padding: 10px 0px;
+  font-size: 1.5rem;
+}
+
+.cart-modal .cart-content {
+  color: rgb(255, 255, 255);
+  background: rgb(26, 24, 24);
+  border: 3px solid rgb(199, 112, 14);
+  width: 900px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.cart-modal .cart-content .item-buy-cart {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.cart-modal .cart-content .item-buy-cart .menu-container-cart {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-modal .cart-content .item-buy-cart .menu-btn-cart {
+  position: relative;
+  display: flex;
+}
+
+.cart-modal .cart-content .item-buy-cart .menu-options-cart {
+  display: flex; /* Приховане за замовчуванням */
+  justify-self: flex-end;
+  position: absolute;
+  width: 200px;
+  top: 0;
+  right: 100%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Щоб меню було поверх інших елементів */
+  visibility: hidden;
+}
+
+.cart-modal .cart-content .item-buy-cart .menu-options-cart.active {
+  visibility: visible;
+}
+
+.cart-modal .cart-content .item-buy-cart .menu-button-cart {
+  width: 40px;
+  font-size: 1.5rem;
+  justify-self: flex-end;
+  cursor: pointer;
+}
+
+.cart-modal .cart-content .item-buy-cart .btn-cart-item-remove {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background-color: rgb(202, 62, 20);
+}
+
+.cart-modal .cart-content .item-buy-cart .btn-cart-item-remove:hover {
+  background-color: rgb(119, 39, 14);
+}
+
+.cart-modal .cart-content .item-buy-cart .quantity-price {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+}
+
+.cart-modal .cart-content .item-buy-cart .quantity-price buttonspan {
+  font-size: 1.5rem;
+}
+
+.cart-modal .cart-content .item-buy-cart .quantity-price .inpt-quantity {
+  -moz-appearance: textfield; /* Для Firefox */
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.3rem;
+  padding: 1px 12px;
+  margin: 0 4px;
+  width: 20px;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid white;
+  background-color: rgb(26, 24, 24);
+}
+
+.cart-modal .cart-content .item-buy-cart .quantity-price input[type=number]::-webkit-inner-spin-button,
+.cart-modal .cart-content .item-buy-cart .quantity-price input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Приховати стрілочки */
+  margin: 0; /* Видалити відступи */
+}
+
+.cart-modal .close {
+  position: absolute;
+  border-radius: 10px;
+  padding: 15px 20px;
+  align-self: self-end;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s linear, background-color 0.3s linear;
+}
+
+.cart-modal .close:hover {
+  color: red;
+  background-color: rgba(75, 45, 12, 0.5);
+}
+
+.cart-modal .cart-content-inside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
+  height: 100%;
+}
+
+.cart-modal .cart-content-inside #cart-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-modal .cart-content-inside a {
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+}
+
+.cart-modal .cart-content-inside .checkout {
+  width: 100%;
+  background: rgb(202, 62, 20);
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.cart-modal .cart-content-inside .checkout:hover {
+  background: rgb(75, 45, 12);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.dop-content {
+  width: 100%;
+  height: 11%;
+  position: relative;
+  background-color: rgb(199, 112, 14);
+}
+
+.header {
+  z-index: 1;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  background-color: rgb(26, 24, 24);
+  justify-content: center;
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.header .con__sticky {
+  padding-top: 0px;
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  background-color: transparent;
+  align-items: center;
+  top: 0;
+}
+
+.header .header__logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid rgb(26, 24, 24);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.header .header__logo img {
+  width: 80%;
+  height: auto;
+}
+
+.header .title {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  margin: 0 10px;
+}
+
+.header .conlang {
+  position: relative;
+}
+
+.header .conlang #lang-toggle {
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header .conlang #lang-toggle span {
+  font-size: 1.8rem;
+}
+
+.header .conlang .lang-options {
+  background-color: rgb(202, 62, 20);
+  position: absolute;
+  color: rgb(255, 255, 255);
+  border: 1px solid #612d2d;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.header .conlang .lang-options button {
+  padding: 10px;
+  border-radius: 5px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header .conlang .lang-options button:hover {
+  background-color: rgb(26, 24, 24);
+}
+
+.header .conlang .hidden {
+  display: none;
+}
+
+.header .menu__list-inside {
+  display: flex;
+}
+
+.header .menu__list-inside > li,
+.header .menu__list > li {
+  border-right: 1px rgb(255, 255, 255) solid;
+  position: relative;
+  font-size: 27px;
+}
+
+.peronality {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.peronality span {
+  margin: 10;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.conteiner-menu {
+  display: none;
+}
+
+.menu_body {
+  display: none;
+}
+
+.conteiner-reg {
+  border: 3px solid rgb(199, 112, 14);
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(163, 147, 147);
+  font-size: 1.5rem;
+  z-index: 10;
+  width: 30%;
+  max-width: 700px;
+  height: 70%;
+  max-height: 700px;
+  display: flex;
+  background-color: rgb(34, 24, 24);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Центрування по вертикалі та горизонталі */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.conteiner-reg.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.conteiner-reg #close-button-reg {
+  align-self: self-end;
+  font-size: 2rem;
+}
+
+.conteiner-reg h3 {
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.conteiner-reg .reg-window {
+  z-index: 11; /* Вікно над напівпрозорим фоном */
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.conteiner-reg .reg-window .reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Відстань між полями форми */
+}
+
+.conteiner-reg .reg-window p {
+  margin-bottom: 10px;
+}
+
+.conteiner-reg .reg-window .nickname,
+.conteiner-reg .reg-window .password {
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteiner-reg .reg-window #name-input,
+.conteiner-reg .reg-window #password-input {
+  color: rgb(255, 255, 255);
+  background-color: rgb(109, 106, 106);
+  padding-right: 20px;
+  padding-left: 10px;
+  height: 40px;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+}
+
+.conteiner-reg .reg-window #name-input {
+  border-radius: 5px;
+  width: 100%;
+}
+
+.conteiner-reg .reg-window .conteiner-area-name,
+.conteiner-reg .reg-window .conteiner-area-password {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  white-space: nowrap;
+  transition: border 0.1s ease, border-width 0.1s ease, box-shadow 0.1s ease;
+}
+
+.conteiner-reg .reg-window .conteiner-area-password:hover,
+.conteiner-reg .reg-window .conteiner-area-name:hover {
+  border-color: rgb(255, 255, 255);
+}
+
+.conteiner-reg .reg-window .conteiner-area-password:focus-within,
+.conteiner-reg .reg-window .conteiner-area-name:focus-within {
+  border-width: 2px;
+  border-color: rgb(255, 255, 255);
+}
+
+.conteiner-reg .reg-window .conteiner-area-password:focus:not(:focus-visible),
+.conteiner-reg .reg-window .conteiner-area-name:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.conteiner-reg .reg-window #password-input {
+  display: flex;
+  width: 90%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.conteiner-reg .reg-window .toggle-password {
+  transition: none;
+  background-color: rgb(109, 106, 106);
+  width: 10%;
+  height: 40px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+}
+
+.conteiner-reg .reg-window a {
+  font-size: 1rem;
+  padding-left: 25px;
+  color: #26bbff;
+}
+
+.conteiner-reg .reg-window a:hover {
+  text-decoration: underline;
+}
+
+.conteiner-reg .reg-window #sign-in {
+  letter-spacing: 2px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #444;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.conteiner-reg .reg-window #sign-in:hover {
+  background-color: rgb(151, 148, 148);
+}
+
+.conteiner-reg .reg-other {
+  display: flex;
+  font-size: 1rem;
+}
+
+.conteiner-reg .reg-other::before, .conteiner-reg .reg-other::after {
+  margin: 0 10px;
+  content: "                        ";
+  text-decoration: line-through;
+}
+
+.large-img {
+  border-radius: 10px;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 20%;
+  z-index: 2;
+  left: 24.5%;
+  width: 50%;
+  height: 70%;
+  visibility: hidden;
+}
+
+.large-img #close-button-modal {
+  z-index: 2;
+  background-color: rgb(199, 112, 14);
+  width: 100%;
+  position: absolute;
+  align-self: flex-end;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s linear, visibility 0.5s linear;
+}
+
+.large-img #close-button-modal:hover {
+  background-color: black;
+}
+
+.large-img .conteiner-large {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  transition: visibility 0.3s linear, height 0.3s linear;
+  z-index: -1;
+}
+
+.large-img .conteiner-large img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.large-img.active {
+  visibility: visible;
+}
+
+.large-img.active #close-button-modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.large-img.active .conteiner-large {
+  visibility: visible;
+  z-index: 1;
+  height: 100%;
+}
+
+.turn-around {
+  justify-self: center;
+  align-self: center;
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.main {
+  background-color: rgb(78, 72, 72);
+  color: rgb(255, 255, 255);
+  padding: 0% 5%;
+}
+
+.main h1 {
+  justify-self: center;
+  align-self: center;
+  font-size: 5rem;
+  padding: 100px;
+}
+
+.main h2 {
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  padding: 20px;
+}
+
+.order-payment {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.order-payment .oreder-modal {
+  background-color: rgb(199, 112, 14);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid white;
+  width: 500px;
+  height: 600px;
+}
+
+.order-payment .oreder-modal .input-field {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.order-payment .oreder-modal .nik-tg {
+  background-color: rgb(139, 79, 10);
+  font-size: 1.2rem;
+  width: 70%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.order-payment .oreder-modal .recipient {
+  background-color: rgb(139, 79, 10);
+  width: 70%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.order-payment .oreder-modal .recipient .text-recipient {
+  color: rgb(212, 201, 201);
+  margin-bottom: 5px;
+}
+
+.order-payment .oreder-modal .recipient .PIB {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.order-payment .oreder-modal .recipient .number {
+  font-size: 1.2rem;
+}
+
+.order-payment .oreder-modal .delivery {
+  background-color: rgb(139, 79, 10);
+  width: 70%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.order-payment .oreder-modal .delivery .text-var {
+  font-size: 1.2rem;
+}
+
+.order-payment .oreder-modal .delivery .text-delivery {
+  color: rgb(212, 201, 201);
+  margin-bottom: 5px;
+}
+
+.order-payment .oreder-modal .delivery form {
+  margin-top: 10px;
+}
+
+.order-payment .oreder-modal .delivery form label {
+  margin-right: 5px;
+}
+
+.order-payment .payment {
+  background-color: rgb(49, 46, 46);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  margin-left: 30px;
+  border-radius: 10px;
+  border: 1px solid white;
+  width: 300px;
+  height: 350px;
+}
+
+.order-payment .payment #order-summary .order-item {
+  font-size: 1.2rem;
+  border-top: 1px white solid;
+  border-bottom: 1px white solid;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  padding: 10px 0;
+  margin: 0px 20px;
+}
+
+.order-payment .payment .payment-text {
+  font-size: 1.2rem;
+  margin: 0px 20px;
+}
+
+.order-payment .payment .payment-info {
+  border-top: 1px white solid;
+  border-bottom: 1px white solid;
+  justify-content: space-around; /* Елементи розташовуються з початку і кінця */
+  align-items: center;
+  display: flex;
+  padding: 10px 0;
+  margin: 0px 20px;
+}
+
+.order-payment .payment .payment-info .payment-title {
+  color: rgb(221, 214, 214);
+}
+
+.order-payment .payment .payment-info .cost-product {
+  font-size: 1.6rem;
+}
+
+.order-payment .payment .confirmed {
+  margin-bottom: 10px;
+  align-self: center;
+  width: 80%;
+  border-radius: 10px;
+}
+
+button {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: rgb(26, 24, 24);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.2s linear;
+}
+
+button:hover {
+  background-color: rgb(75, 45, 12);
+}
+
+.footer {
+  padding: 0 2%;
+  background-color: rgb(26, 24, 24);
+  max-width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-top {
+  flex-wrap: wrap;
+  display: flex;
+  padding-top: 30px;
+  width: 100%;
+  height: 75%;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.social {
+  color: rgb(168, 147, 147);
+  margin-bottom: 10px;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 200px;
+  height: 150px;
+  margin-right: 20px;
+  padding-right: 30px;
+}
+
+.social p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.social .btn-social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.social .btn-social span {
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 1.7rem;
+  margin-left: 10px;
+}
+
+.social .btn-social span:hover {
+  color: rgb(255, 255, 255);
+}
+
+.links {
+  padding-right: 30px;
+  color: rgb(168, 147, 147);
+  margin-bottom: 10px;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 200px;
+  height: 150px;
+}
+
+.links p {
+  font-size: 1.2rem;
+}
+
+.links .btn-links button {
+  color: rgb(62, 119, 170);
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: left;
+  padding: 0;
+}
+
+.links .btn-links button:hover {
+  color: rgb(202, 13, 13);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  width: 100%;
+  height: 25%;
+  position: relative;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 1rem;
+  padding: 20px 0px;
+}
+
+@font-face {
+  font-family: "icons";
+  src: url("/fonts/icons.ttf") format("truetype"), url("/fonts/icons.woff") format("woff"), url("/fonts/icons.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=_icon-],
+[class*=" _icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 1.5rem;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+._icon-login::after {
+  content: "\e900";
+}
+
+._icon-basket::after {
+  content: "\e906";
+}
+
+._icon-eraser::after {
+  content: "\e907";
+}
+
+._icon-clear::after {
+  content: "\e901";
+}
+
+._icon-icon-save::after {
+  content: "\e902";
+  margin-top: 2px;
+}
+
+._icon-left-backward::after {
+  content: "\e903";
+}
+
+._icon-right-backward::after {
+  content: "\e904";
+}
+
+._icon-lang::after {
+  content: "\e905";
+}
+
+._icon-pencil::after {
+  content: "\e908";
+}
+
+._icon-fill::after {
+  content: "\e909";
+}
+
+._icon-arrow-right::after {
+  content: "\e90a";
+}
+
+._icon-info::after {
+  content: "\e90b";
+}
+
+._icon-youtube::after {
+  content: "\e90c";
+}
+
+._icon-telegram::after {
+  content: "\e90d";
+}
+
+._icon-facebook::after {
+  content: "\e90e";
+}
+
+._icon-instagram::after {
+  content: "\e90f";
+}
+
+._icon-tik-tok::after {
+  content: "\e910";
+}
+
+._icon-edit::after {
+  content: "\e911";
+}
+
+._icon-trash::after {
+  content: "\e912";
+}
+
+._icon-increase::after {
+  content: "\e913";
+}
+
+._icon-plus::after {
+  content: "\e914";
+}
+
+._icon-minus::after {
+  content: "\e915";
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.central-wrapper {
+  background-blend-mode: multiply;
+  background-color: rgb(26, 24, 24);
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.outlet-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .large-img {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 10%;
+    z-index: 2;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    visibility: hidden;
+  }
+  .large-img #close-button-modal {
+    border: 2px solid rgb(26, 24, 24);
+  }
+  .large-img .conteiner-large {
+    border-radius: 10px;
+  }
+  .large-img .conteiner-large img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+}
+@media (max-width: 1024px) {
+  header #con__sticky {
+    flex-direction: row;
+    padding-top: 0px;
+    width: 100%;
+  }
+  header #title-header {
+    font-size: 1.8rem;
+  }
+  .conteiner-reg {
+    width: 60%; /* Менша ширина */
+    height: 70%; /* Висота автоматично підлаштовується */
+  }
+}
+@media (max-width: 798px) {
+  .conteiner-reg {
+    width: 90%; /* Менша ширина */
+    height: 600px; /* Висота автоматично підлаштовується */
+  }
+  .conteiner-menu {
+    z-index: 2;
+    left: -100%;
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .conteiner-menu.active {
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .conteiner-menu .menu_body {
+    display: flex;
+    z-index: 11;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    background-color: #2c2c2c;
+    width: 320px;
+    height: 100%;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+  }
+  .conteiner-menu .menu_body.open {
+    left: -320px;
+  }
+  .conteiner-menu .menu_body.active {
+    left: 0;
+  }
+  .conteiner-menu .menu_body .header-menu {
+    background-color: #201f1f;
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: end;
+  }
+  .conteiner-menu .menu_body .header-menu .header__logo-menu {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid rgb(26, 24, 24);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-size: 10px;
+    margin: 10px;
+  }
+  .conteiner-menu .menu_body .header-menu .header__logo-menu img {
+    width: 80%;
+    height: auto;
+  }
+  .conteiner-menu .menu_body .header-menu .title-menu {
+    color: white;
+    align-self: center;
+    font-size: 1.5rem;
+    margin: 10px;
+  }
+  .conteiner-menu .menu_body .header-menu .close-button {
+    color: #fff; /* Колір хрестика */
+    font-size: 1.7rem; /* Розмір хрестика */
+    cursor: pointer;
+    background-color: transparent;
+  }
+  .conteiner-menu .menu_body .header-menu .close-button:hover {
+    color: red; /* Колір хрестика при наведенні */
+  }
+  .conteiner-menu .menu_body .menu__list {
+    list-style: none;
+    display: block;
+    width: 100%;
+  }
+  .conteiner-menu .menu_body .menu__list li {
+    border-bottom: 1px white solid;
+  }
+  .conteiner-menu .menu_body .menu__list li button {
+    position: sticky;
+    width: 100%;
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+  .conteiner-menu .menu_body .menu__list li button:hover {
+    background-color: rgb(43, 30, 28);
+  }
+  header .con__sticky {
+    padding-top: 0;
+  }
+  header .burger-menu {
+    padding-left: 10px;
+    display: block; /* Відображаємо бургер-меню */
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative; /* Важливо для позиціонування span */
+  }
+  header .burger-menu .home,
+  header .burger-menu .shop,
+  header .burger-menu .constructor,
+  header .burger-menu .faq {
+    font-size: 1.2rem;
+  }
+  header .burger-menu span {
+    display: block;
+    width: 100%;
+    height: 10%;
+    background-color: #eee; /* Колір ліній */
+    margin: 5px 0; /* Відстань між лініями */
+    transition: all 0.3s ease; /* Анімація при кліці */
+  }
+  header .burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px); /* Верхня лінія */
+  }
+  header .burger-menu.active span:nth-child(2) {
+    opacity: 0; /* Середня лінія зникає */
+  }
+  header .burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px); /* Нижня лінія */
+  }
+  header #menu__list-inside {
+    display: none;
+  }
+  header .title {
+    font-size: 1.3rem;
+  }
+}
+@media (max-width: 480px) {
+  .large-img {
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+  }
+  .large-img #close-button-modal {
+    border: 2px solid rgb(26, 24, 24);
+  }
+  .large-img .conteiner-large {
+    border-radius: 10px;
+  }
+  .large-img .conteiner-large img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+  .conteiner-save-name .conteiner-input-btn {
+    width: 100%;
+  }
+  header #title-header {
+    font-size: 1.3rem;
+    margin: 0 10px;
+  }
+  header .burger-menu {
+    margin-right: 8px;
+  }
+  header .home,
+  header .shop,
+  header .constructor,
+  header .faq {
+    font-size: 0.9rem;
+  }
+  header .con__sticky {
+    padding: 0px;
+  }
+  header .peronality {
+    padding-right: 0px;
+  }
+  header .peronality #icon-lang,
+  header .peronality #basket {
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  header #btn-reg {
+    display: none;
+  }
+}
+@media (max-width: 200px) {
+  header .con__sticky {
+    flex-direction: column;
+    padding: 0px;
+  }
+}
+
+/*# sourceMappingURL=style-order.css.map */

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style-home.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<title>Конструктор</title>
+</head>
+
+<body>
+	<div class="central-wrapper" id="central-wrapper">
+
+		<div class="cart-modal">
+			<div class="cart-content">
+				<span class="close" id="close-btn-cart">&times;</span>
+				<div class="cart-header">
+					<h2>Кошик</h2>
+				</div>
+				<div class="cart-content-inside">
+
+					<div id="cart-container"></div>
+					<button class="checkout" id="checkout-btn">Оформити
+						замовлення</button>
+
+				</div>
+			</div>
+		</div>
+		<div class="conteiner-menu" id="conteiner-menu">
+			<nav class="menu_body">
+				<div class="header-menu">
+					<div class="header__logo-menu">
+						<img src="" alt="Логотип" />
+					</div>
+					<div class="title-menu" data-lang="title">
+						Супер Іграшки
+					</div>
+					<button class="close-button" id="close-button">&times;</button>
+				</div>
+				<button class="login btn-reg" id="btn-reg2" onclick="RegMenu()">
+					<p>Увійти</p>
+
+				</button>
+				<ul class="menu__list">
+					<li><button class="home " data-lang="home">Головна</button></li>
+					<li><button class="shop" data-lang="shop" onclick="window.location.href='shop.html'">Магазин</button>
+					</li>
+					<li><button class="constructor" data-lang="constructor"
+							onclick="window.location.href = 'index.html'">>Конструктор</button>
+					</li>
+					<li><button class="faq" data-lang="faq">FAQ</button></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="all_conteiner_reg">
+			<div class="conteiner-login" id="sign-up">
+				<button class="close-button-reg" id="close-button-reg">&times;</button>
+				<h3>Увійти</h3>
+
+				<nav class="reg-window">
+					<div class="reg-form">
+						<div class="nickname">
+							<p>Логін</p>
+							<div class="conteiner-area-name">
+								<input type="text" id="name-input">
+							</div>
+						</div>
+
+						<div class="password">
+							<p>Пароль</p>
+							<div class="conteiner-area-password">
+								<input type="password" id="password-input">
+								<button type="button" id="togglePassword" class="toggle-password">
+									<img id="eye" src="img/eye-crossed.svg" alt="" style="width: 20px; height: 20px;">
+								</button>
+							</div>
+						</div>
+
+						<a href=""> Забули свій пароль?</a>
+
+						<button id="sign-in">Увійти</button>
+					</div>
+				</nav>
+				<div class="con_other_reg">
+					<div class="reg-other">або увійти</div>
+
+					<script src="https://accounts.google.com/gsi/client" async defer></script>
+					<div id="g_id_onload"
+						data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+						data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+						data-auto_prompt="false">
+					</div>
+					<div class="g_id_signin" data-type="standard"></div>
+				</div>
+				<p class="switch-to-register" id="switch-to-register">Не маєте облікового запису?
+					<span>Зареєструйтесь</span>
+				</p>
+			</div>
+
+			<div class="conteiner-reg" id="sign-up-first">
+				<button class="close-button-reg" id="close-button-reg-first">&times;</button>
+				<h3>Зареєструватися</h3>
+
+				<nav class="reg-window">
+					<div class="reg-form">
+						<div class="nickname">
+							<p>Логін</p>
+							<div class="conteiner-area-name">
+								<input type="text" id="name-input-first">
+							</div>
+						</div>
+
+						<div class="password">
+							<p>Пароль</p>
+							<div class="conteiner-area-password">
+								<input type="password" id="password-input-first">
+								<button type="button" id="togglePassword-first" class="toggle-password">
+									<img id="eye-first" src="img/eye-crossed.svg" alt=" " style="width: 20px; height: 20px;">
+								</button>
+							</div>
+						</div>
+
+						<div class="phone">
+							<p>Телефон</p>
+							<div class="conteiner-area-phone">
+								<input type="tel" id="phone-input-first" pattern="[0-9]{10}" required>
+							</div>
+						</div>
+
+						<button id="sign-in-first">Зареєструватись</button>
+					</div>
+				</nav>
+				<div class="con_other_reg">
+					<div class="reg-other">або зареєструватись</div>
+
+					<script src="https://accounts.google.com/gsi/client" async defer></script>
+					<div id="g_id_onload"
+						data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+						data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+						data-auto_prompt="false">
+					</div>
+					<div class="g_id_signin" data-type="standard"></div>
+				</div>
+				<p class="switch-to-login" id="switch-to-login">Маєте обліковий запис? <span>Увійти</span></p>
+			</div>
+
+		</div>
+
+
+
+		<div class="dop-content">
+
+		</div>
+
+		<div class="outlet-wrapper">
+
+			<div id="header-container"></div>
+
+			<script>
+				fetch('/header.html')
+					.then(res => res.text())
+					.then(html => {
+						document.getElementById('header-container').innerHTML = html;
+					});
+
+			</script>
+
+			<main class="main">
+
+
+
+			</main>
+			<footer class="footer">
+				<div class="footer-top">
+					<div class="social">
+						<p>Ми в соціальних мережах</p>
+						<div class="btn-social">
+							<span class=" _icon-youtube" title="Youtube" aria-label="Youtube"></span>
+							<span class="_icon-telegram" title="Telegram" aria-label="Telegram"></span>
+							<span class="_icon-instagram" title="Instagram" aria-label="Instagram"></span>
+							<span class="_icon-tik-tok" title="Tik-Tok" aria-label="Tik-Tok"></span></span>
+							<span class="_icon-facebook" title="Facebook" aria-label="Facebook"></span>
+						</div>
+					</div>
+					<div class="links">
+						<p>Інформація про компанію</p>
+						<div class="btn-links">
+							<button>Про нас</button>
+							<button>Умови використання сайту</button>
+							<button>Контакти</button>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p>© 2025 Інтернет-магазин «Papluschins™» </p>
+				</div>
+			</footer>
+
+		</div>
+
+	</div>
+	<script src="Js/homeJS/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+	<script src="Js/google.js"></script>
+	<!-- <script src="Js/burger.js"></script> -->
+
+
+
+
+
+
+</body>
+
+</html>

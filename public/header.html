@@ -1,0 +1,49 @@
+<header class="header">
+	<div class="con__sticky" id="con__sticky">
+		<div class="burger-menu" id="burger-menu" onclick="toggleMenu()">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<div class="header__logo">
+			<img src="" alt=" Логотип" />
+		</div>
+		<div class="title" id="title-header" data-lang="title">
+			Супер Іграшки
+		</div>
+
+		<ul class="menu__list-inside" id="menu__list-inside">
+			<li></li>
+			<li><button class="home " data-lang="home" onclick="window.location.href='home.html'">Головна</button></li>
+			<li><button class="shop" data-lang="shop" onclick="window.location.href='shop.html'">Магазин</button>
+			</li>
+			<li><button class="constructor" data-lang="constructor"
+					onclick="window.location.href='index.html'">Конструктор</button></li>
+			<li><button class="faq" data-lang="faq">FAQ</button></li>
+		</ul>
+
+		<div class="peronality">
+			<div class="conlang">
+				<button id="lang-toggle" class="lang-toggle">
+					<span class="_icon-lang" id="icon-lang"></span>
+				</button>
+
+				<div id="lang-options" class="lang-options hidden">
+					<button data-lang-choice="uk">UA</button>
+					<button data-lang-choice="en">EN</button>
+				</div>
+			</div>
+			<button class="login" id="btn-reg" onclick="RegMenu()">
+				<span class="_icon-login" id="login">
+				</span>
+
+			</button>
+
+			<button class="basket" id="view-cart" onclick="CartMenu()">
+				<div class="counted" id="counted"></div>
+				<span class="_icon-basket" id="basket"></span>
+			</button>
+		</div>
+	</div>
+
+</header>

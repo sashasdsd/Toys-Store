@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style-order.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<title>Order</title>
+</head>
+
+<body>
+	<div class="central-wrapper" id="central-wrapper">
+		<div class="outlet-wrapper">
+			<div class="blocked-block" id="blocked-block">
+
+			</div>
+
+			<header class="header">
+				<div class="con__sticky" id="con__sticky" style="justify-content: start; opacity: 1;">
+
+					<div class="header__logo">
+						<img src="" alt="Логотип" />
+					</div>
+					<div class="title" id="title-header" data-lang="title">
+						Супер Іграшки
+					</div>
+
+
+				</div>
+
+			</header>
+
+			<main class="main">
+				<h2>Оформлення замовлення</h2>
+				<div class="order-payment">
+					<div class="all_conteiner_reg">
+						<div class="conteiner-login" id="sign-up">
+
+							<h3>Увійти</h3>
+
+							<nav class="reg-window">
+								<div class="reg-form">
+									<div class="nickname">
+										<p>Логін</p>
+										<div class="conteiner-area-name">
+											<input type="text" id="name-input">
+										</div>
+									</div>
+
+									<div class="password">
+										<p>Пароль</p>
+										<div class="conteiner-area-password">
+											<input type="password" id="password-input">
+											<button type="button" id="togglePassword" class="toggle-password">
+												<img id="eye" src="img/eye-crossed.svg" alt=" " style="width: 20px; height: 20px;">
+											</button>
+										</div>
+									</div>
+
+									<a href=""> Забули свій пароль?</a>
+
+									<button id="sign-in">Увійти</button>
+								</div>
+							</nav>
+							<div class="con_other_reg">
+								<div class="reg-other">або увійти</div>
+
+								<script src="https://accounts.google.com/gsi/client" async defer></script>
+								<div id="g_id_onload"
+									data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+									data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+									data-auto_prompt="false">
+								</div>
+								<div class="g_id_signin" data-type="standard"></div>
+							</div>
+							<p class="switch-to-register" id="switch-to-register">Не маєте облікового запису?
+								<span>Зареєструйтесь</span>
+							</p>
+						</div>
+
+						<div class="conteiner-reg" id="sign-up-first">
+
+							<h3>Зареєструватися</h3>
+
+							<nav class="reg-window">
+								<div class="reg-form">
+									<div class="nickname">
+										<p>Логін</p>
+										<div class="conteiner-area-name">
+											<input type="text" id="name-input-first">
+										</div>
+									</div>
+
+									<div class="password">
+										<p>Пароль</p>
+										<div class="conteiner-area-password">
+											<input type="password" id="password-input-first">
+											<button type="button" id="togglePassword-first" class="toggle-password">
+												<img id="eye-first" src="img/eye-crossed.svg" alt=" "
+													style="width: 20px; height: 20px;">
+											</button>
+										</div>
+									</div>
+
+									<div class="phone">
+										<p>Телефон</p>
+										<div class="conteiner-area-phone">
+											<input type="tel" id="phone-input-first" pattern="[0-9]{10}" required>
+										</div>
+									</div>
+
+									<button id="sign-in-first">Зареєструватись</button>
+								</div>
+							</nav>
+							<div class="con_other_reg">
+								<div class="reg-other">або зареєструватись</div>
+
+								<script src="https://accounts.google.com/gsi/client" async defer></script>
+								<div id="g_id_onload"
+									data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+									data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+									data-auto_prompt="false">
+								</div>
+								<div class="g_id_signin" data-type="standard"></div>
+							</div>
+							<p class="switch-to-login" id="switch-to-login">Маєте обліковий запис? <span>Увійти</span></p>
+						</div>
+
+					</div>
+					<div class="oreder-modal" id="oreder-modal">
+						<div class="nik-tg">
+							<p>Нік в телеграм</p>
+							<div class="input-wrapper">
+								<input type="text" class="input-field" id="telegram">
+								<span class="success-icon">✔</span>
+							</div>
+						</div>
+						<div class="recipient">
+							<p class="text-recipient">Отримувач замовлення</p>
+							<div class="first_name" id="first_name">
+								<p>Ім'я</p>
+
+								<div class="input-wrapper">
+									<input type="text" class="input-field" id="name" placeholder="Ім'я">
+									<span class="success-icon">✔</span>
+								</div>
+							</div>
+							<div class="second_name" id="second_name">
+								<p>Прізвище</p>
+								<div class="input-wrapper">
+									<input type="text" class="input-field" id="last_name" placeholder="Прізвище">
+									<span class="success-icon">✔</span>
+								</div>
+
+							</div>
+							<div class="number">
+								<p>Телефон</p>
+
+								<div class="input-wrapper">
+									<input type="text" class="input-field" id="phone" placeholder="Введіть номер +380XXXXXXXXX">
+									<span class="success-icon">✔</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="delivery">
+							<p class="text-delivery">Доставка</p>
+							<div class="state_con">
+								<label for="state">Оберіть область:</label>
+
+								<div class="input-wrapper">
+									<input list="state-list" id="state" class="input-field" name="state">
+
+								</div>
+								<datalist id="state-list"></datalist>
+							</div>
+							<div class="city_con">
+								<label for="city">Оберіть населений пункт:</label>
+								<div class="input-wrapper">
+									<input list="city-list" id="town" class="input-field" name="city">
+
+								</div>
+								<datalist id="city-list"></datalist>
+							</div>
+							<div class="delivery_con">
+								<p class="text-var">Оберіть спосіб доставки</p>
+								<form id="delivery_form">
+									<div class="radio-item">
+										<input type="radio" name="choice" id="nova_poshta" value="NovaPoshta" class="radio-input">
+										<label for="nova_poshta" class="radio-label">
+											<span class="icon-wrapper">
+												<i class="_icon-ratio">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+													<span class="path5"></span>
+												</i>
+											</span>
+											<span class="label-text">Нова Пошта</span>
+										</label>
+									</div>
+									<div class="radio-item">
+										<input type="radio" name="choice" id="ukrposhta" value="UkrPoshta" class="radio-input">
+										<label for="ukrposhta" class="radio-label">
+											<span class="icon-wrapper">
+												<i class="_icon-ratio">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+													<span class="path5"></span>
+												</i>
+											</span>
+											<span class="label-text">Укрпошта</span>
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+
+
+
+
+					</div>
+					<div class="payment" id="payment">
+						<h2>Разом</h2>
+						<div id="order-summary"></div>
+						<p class="payment-text">Протягом 24годин, з вами зв'яжеться менеджер з реквезитами для оплати</p>
+
+						<dl class="payment-info">
+							<dt class="payment-title">До сплати</dt>
+							<dd class="cost-product" id="total-price">
+							</dd>
+						</dl>
+						<div class="confirmed-con">
+							<button class="confirmed-blocked" id="confirm-order-blocked"></button>
+							<button class="confirmed" id="confirm-order">
+								Замовлення підтверджено
+							</button>
+						</div>
+					</div>
+
+
+				</div>
+
+
+			</main>
+
+			<footer class="footer">
+				<div class="footer-top">
+					<div class="social">
+						<p>Ми в соціальних мережах</p>
+						<div class="btn-social">
+							<span class=" _icon-youtube" title="Youtube" aria-label="Youtube"></span>
+							<span class="_icon-telegram" title="Telegram" aria-label="Telegram"></span>
+							<span class="_icon-instagram" title="Instagram" aria-label="Instagram"></span>
+							<span class="_icon-tik-tok" title="Tik-Tok" aria-label="Tik-Tok"></span></span>
+							<span class="_icon-facebook" title="Facebook" aria-label="Facebook"></span>
+						</div>
+					</div>
+					<div class="links">
+						<p>Інформація про компанію</p>
+						<div class="btn-links">
+							<button>Про нас</button>
+							<button>Умови використання сайту</button>
+							<button>Контакти</button>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p>© 2025 Інтернет-магазин «Papluschins™» </p>
+				</div>
+			</footer>
+		</div>
+
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
+	<script src="Js/orderJS/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2287 @@
+@charset "UTF-8";
+.cart-modal {
+  z-index: 10;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0.5s ease, opacity 0.5s ease;
+}
+.cart-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+.cart-modal .cart-header {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-bottom: 6px;
+}
+.cart-modal .cart-header h2 {
+  margin-left: 20px;
+  margin-top: 10px;
+  display: flex;
+  align-self: start;
+  padding: 10px 0px;
+  font-size: 1.5rem;
+}
+.cart-modal .cart-content {
+  color: rgb(255, 255, 255);
+  background: rgb(26, 24, 24);
+  border: 3px solid rgb(199, 112, 14);
+  width: 900px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+}
+.cart-modal .cart-content .item-buy-cart {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 90%;
+}
+.cart-modal .cart-content .item-buy-cart .menu-container-cart {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cart-modal .cart-content .item-buy-cart .menu-btn-cart {
+  position: relative;
+  display: flex;
+}
+.cart-modal .cart-content .item-buy-cart .menu-options-cart {
+  display: flex; /* Приховане за замовчуванням */
+  justify-self: flex-end;
+  position: absolute;
+  width: 200px;
+  top: 0;
+  right: 100%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Щоб меню було поверх інших елементів */
+  visibility: hidden;
+}
+.cart-modal .cart-content .item-buy-cart .menu-options-cart.active {
+  visibility: visible;
+}
+.cart-modal .cart-content .item-buy-cart .menu-button-cart {
+  width: 40px;
+  font-size: 1.5rem;
+  justify-self: flex-end;
+  cursor: pointer;
+}
+.cart-modal .cart-content .item-buy-cart .btn-cart-item-remove {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background-color: rgb(202, 62, 20);
+}
+.cart-modal .cart-content .item-buy-cart .btn-cart-item-remove:hover {
+  background-color: rgb(119, 39, 14);
+}
+.cart-modal .cart-content .item-buy-cart .quantity-price {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+}
+.cart-modal .cart-content .item-buy-cart .quantity-price buttonspan {
+  font-size: 1.5rem;
+}
+.cart-modal .cart-content .item-buy-cart .quantity-price .inpt-quantity {
+  -moz-appearance: textfield; /* Для Firefox */
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  font-size: 1.3rem;
+  padding: 1px 12px;
+  margin: 0 4px;
+  width: 20px;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid white;
+  background-color: rgb(26, 24, 24);
+}
+.cart-modal .cart-content .item-buy-cart .quantity-price input[type=number]::-webkit-inner-spin-button,
+.cart-modal .cart-content .item-buy-cart .quantity-price input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Приховати стрілочки */
+  margin: 0; /* Видалити відступи */
+}
+.cart-modal .close {
+  position: absolute;
+  border-radius: 10px;
+  padding: 15px 20px;
+  align-self: self-end;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s linear, background-color 0.3s linear;
+}
+.cart-modal .close:hover {
+  color: red;
+  background-color: rgba(75, 45, 12, 0.5);
+}
+.cart-modal .cart-content-inside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
+  height: 100%;
+}
+.cart-modal .cart-content-inside #cart-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cart-modal .cart-content-inside a {
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+}
+.cart-modal .cart-content-inside .checkout {
+  width: 100%;
+  background: rgb(202, 62, 20);
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.cart-modal .cart-content-inside .checkout:hover {
+  background: rgb(75, 45, 12);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.dop-content {
+  z-index: 2;
+  width: 100%;
+  height: 11%;
+  position: relative;
+  background-color: rgb(199, 112, 14);
+}
+
+.header {
+  z-index: 2;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  background-color: rgb(26, 24, 24);
+  justify-content: center;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  border-top: 2px solid rgb(26, 24, 24);
+}
+.header .con__sticky {
+  padding-top: 0px;
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  background-color: transparent;
+  align-items: center;
+  top: 0;
+}
+.header .header__logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid rgb(26, 24, 24);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.header .header__logo img {
+  width: 80%;
+  height: auto;
+}
+.header .title {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  margin: 0 10px;
+}
+.header .conlang {
+  position: relative;
+}
+.header .conlang #lang-toggle {
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.header .conlang #lang-toggle span {
+  font-size: 1.8rem;
+}
+.header .conlang .lang-options {
+  background-color: rgb(202, 62, 20);
+  position: absolute;
+  color: rgb(255, 255, 255);
+  border: 1px solid #612d2d;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.header .conlang .lang-options button {
+  padding: 10px;
+  border-radius: 5px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.header .conlang .lang-options button:hover {
+  background-color: rgb(26, 24, 24);
+}
+.header .conlang .hidden {
+  display: none;
+}
+.header .menu__list-inside {
+  display: flex;
+}
+.header .menu__list-inside > li,
+.header .menu__list > li {
+  border-right: 1px rgb(255, 255, 255) solid;
+  position: relative;
+  font-size: 27px;
+}
+
+.peronality {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.peronality span {
+  margin: 10;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.conteiner-menu {
+  display: none;
+}
+
+.menu_body {
+  display: none;
+}
+
+.all_conteiner_reg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(2, 2, 2, 0.5);
+  z-index: 4;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s ease, opacity 0.5s ease;
+}
+.all_conteiner_reg.active {
+  visibility: visible;
+  opacity: 1;
+}
+.all_conteiner_reg .conteiner-login {
+  border: 3px solid rgb(199, 112, 14);
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(163, 147, 147);
+  font-size: 1.5rem;
+  z-index: 4;
+  width: 90%;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  max-height: -moz-max-content;
+  max-height: max-content;
+  display: flex;
+  background-color: rgb(34, 24, 24);
+  position: fixed;
+  top: 10vh; /* Щоб не зрізало зверху */
+  bottom: 10vh; /* Додаємо обмеження по висоті */
+  left: 50%;
+  transform: translateX(-50%); /* Центруємо лише по горизонталі */
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.all_conteiner_reg .conteiner-login.active {
+  opacity: 1;
+  visibility: visible;
+}
+.all_conteiner_reg .conteiner-login #close-button-reg {
+  align-self: self-end;
+  font-size: 2rem;
+}
+.all_conteiner_reg .conteiner-login h3 {
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+.all_conteiner_reg .conteiner-login .all_reg {
+  z-index: 11;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.all_conteiner_reg .conteiner-login .reg-window {
+  /* Вікно над напівпрозорим фоном */
+  overflow: auto;
+  border-radius: 10px;
+  min-height: 100px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.all_conteiner_reg .conteiner-login .reg-window .reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Відстань між полями форми */
+}
+.all_conteiner_reg .conteiner-login .reg-window p {
+  margin-bottom: 10px;
+}
+.all_conteiner_reg .conteiner-login .reg-window .nickname,
+.all_conteiner_reg .conteiner-login .reg-window .password {
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.all_conteiner_reg .conteiner-login .reg-window #name-input,
+.all_conteiner_reg .conteiner-login .reg-window #password-input {
+  color: rgb(255, 255, 255);
+  background-color: rgb(109, 106, 106);
+  padding-right: 20px;
+  padding-left: 10px;
+  height: 40px;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+}
+.all_conteiner_reg .conteiner-login .reg-window #name-input {
+  border-radius: 5px;
+  width: 100%;
+}
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-name,
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-password {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  white-space: nowrap;
+  transition: border 0.1s ease, border-width 0.1s ease, box-shadow 0.1s ease;
+}
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-password:hover,
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-name:hover {
+  border-color: rgb(255, 255, 255);
+}
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-password:focus-within,
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-name:focus-within {
+  border-width: 2px;
+  border-color: rgb(255, 255, 255);
+}
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-password:focus:not(:focus-visible),
+.all_conteiner_reg .conteiner-login .reg-window .conteiner-area-name:focus:not(:focus-visible) {
+  outline: none;
+}
+.all_conteiner_reg .conteiner-login .reg-window #password-input {
+  display: flex;
+  width: 90%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.all_conteiner_reg .conteiner-login .reg-window .toggle-password {
+  transition: none;
+  background-color: rgb(109, 106, 106);
+  width: 10%;
+  height: 40px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+}
+.all_conteiner_reg .conteiner-login .reg-window a {
+  font-size: 1rem;
+  padding-left: 25px;
+  color: #26bbff;
+}
+.all_conteiner_reg .conteiner-login .reg-window a:hover {
+  text-decoration: underline;
+}
+.all_conteiner_reg .conteiner-login .reg-window #sign-in {
+  letter-spacing: 2px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #444;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.all_conteiner_reg .conteiner-login .reg-window #sign-in:hover {
+  background-color: rgb(151, 148, 148);
+}
+.all_conteiner_reg .conteiner-login .con_other_reg {
+  margin-bottom: 20px;
+}
+.all_conteiner_reg .conteiner-login .reg-other {
+  justify-self: center;
+  display: flex;
+  font-size: 1rem;
+  padding-bottom: 10px;
+}
+.all_conteiner_reg .conteiner-login .reg-other::before, .all_conteiner_reg .conteiner-login .reg-other::after {
+  margin: 0 10px;
+  content: "                        ";
+  text-decoration: line-through;
+}
+.all_conteiner_reg .conteiner-reg {
+  border: 3px solid rgb(199, 112, 14);
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(163, 147, 147);
+  font-size: 1.5rem;
+  z-index: 4;
+  width: 90%;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  max-height: -moz-max-content;
+  max-height: max-content;
+  display: flex;
+  background-color: rgb(34, 24, 24);
+  position: fixed;
+  top: 10vh; /* Щоб не зрізало зверху */
+  bottom: 10vh; /* Додаємо обмеження по висоті */
+  left: 50%;
+  transform: translateX(-50%); /* Центруємо лише по горизонталі */
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.all_conteiner_reg .conteiner-reg.active {
+  opacity: 1;
+  visibility: visible;
+}
+.all_conteiner_reg .conteiner-reg #close-button-reg-first {
+  align-self: self-end;
+  font-size: 2rem;
+}
+.all_conteiner_reg .conteiner-reg h3 {
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+.all_conteiner_reg .conteiner-reg .all_reg {
+  z-index: 11;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.all_conteiner_reg .conteiner-reg .reg-window {
+  /* Вікно над напівпрозорим фоном */
+  overflow: auto;
+  border-radius: 10px;
+  min-height: 100px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.all_conteiner_reg .conteiner-reg .reg-window .reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Відстань між полями форми */
+}
+.all_conteiner_reg .conteiner-reg .reg-window p {
+  margin-bottom: 10px;
+}
+.all_conteiner_reg .conteiner-reg .reg-window .phone,
+.all_conteiner_reg .conteiner-reg .reg-window .nickname,
+.all_conteiner_reg .conteiner-reg .reg-window .password {
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.all_conteiner_reg .conteiner-reg .reg-window #phone-input-first,
+.all_conteiner_reg .conteiner-reg .reg-window #name-input-first,
+.all_conteiner_reg .conteiner-reg .reg-window #password-input-first {
+  color: rgb(255, 255, 255);
+  background-color: rgb(109, 106, 106);
+  padding-right: 20px;
+  padding-left: 10px;
+  height: 40px;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+}
+.all_conteiner_reg .conteiner-reg .reg-window #phone-input-first,
+.all_conteiner_reg .conteiner-reg .reg-window #name-input-first {
+  border-radius: 5px;
+  width: 100%;
+}
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-phone,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-name,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-password {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  white-space: nowrap;
+  transition: border 0.1s ease, border-width 0.1s ease, box-shadow 0.1s ease;
+}
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-phone:hover,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-password:hover,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-name:hover {
+  border-color: rgb(255, 255, 255);
+}
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-phone:focus-within,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-password:focus-within,
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-name:focus-within {
+  border-width: 2px;
+  border-color: rgb(255, 255, 255);
+}
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-phone:focus:not(:focus-visible),
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-password:focus:not(:focus-visible),
+.all_conteiner_reg .conteiner-reg .reg-window .conteiner-area-name:focus:not(:focus-visible) {
+  outline: none;
+}
+.all_conteiner_reg .conteiner-reg .reg-window #password-input-first {
+  display: flex;
+  width: 90%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.all_conteiner_reg .conteiner-reg .reg-window .toggle-password {
+  transition: none;
+  background-color: rgb(109, 106, 106);
+  width: 10%;
+  height: 40px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+}
+.all_conteiner_reg .conteiner-reg .reg-window a {
+  font-size: 1rem;
+  padding-left: 25px;
+  color: #26bbff;
+}
+.all_conteiner_reg .conteiner-reg .reg-window a:hover {
+  text-decoration: underline;
+}
+.all_conteiner_reg .conteiner-reg .reg-window #sign-in-first {
+  letter-spacing: 2px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #444;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.all_conteiner_reg .conteiner-reg .reg-window #sign-in-first:hover {
+  background-color: rgb(151, 148, 148);
+}
+.all_conteiner_reg .conteiner-reg .con_other_reg {
+  margin-bottom: 20px;
+}
+.all_conteiner_reg .conteiner-reg .reg-other {
+  justify-self: center;
+  display: flex;
+  font-size: 1rem;
+  padding-bottom: 10px;
+}
+.all_conteiner_reg .conteiner-reg .reg-other::before, .all_conteiner_reg .conteiner-reg .reg-other::after {
+  margin: 0 10px;
+  content: "                        ";
+  text-decoration: line-through;
+}
+.all_conteiner_reg #switch-to-login,
+.all_conteiner_reg #switch-to-register {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+.all_conteiner_reg #switch-to-login span,
+.all_conteiner_reg #switch-to-register span {
+  color: #26bbff;
+  cursor: pointer;
+}
+
+.basket {
+  position: relative;
+}
+
+.counted {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  background-color: green;
+  color: #fff;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.counted.active {
+  display: flex;
+}
+
+.large-img {
+  border-radius: 10px;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 20%;
+  z-index: 2;
+  left: 24.5%;
+  width: 50%;
+  height: 70%;
+  visibility: hidden;
+}
+.large-img #close-button-modal {
+  z-index: 2;
+  background-color: rgb(199, 112, 14);
+  width: 100%;
+  position: absolute;
+  align-self: flex-end;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s linear, visibility 0.5s linear;
+}
+.large-img #close-button-modal:hover {
+  background-color: black;
+}
+.large-img .conteiner-large {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  transition: visibility 0.3s linear, height 0.3s linear;
+  z-index: -1;
+}
+.large-img .conteiner-large img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+.large-img.active {
+  visibility: visible;
+}
+.large-img.active #close-button-modal {
+  opacity: 1;
+  visibility: visible;
+}
+.large-img.active .conteiner-large {
+  visibility: visible;
+  z-index: 1;
+  height: 100%;
+}
+
+.conteiner-save-name {
+  color: rgb(255, 255, 255);
+  display: flex;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+.conteiner-save-name .conteiner-input-btn {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(26, 24, 24);
+  height: 200px;
+  width: 500px;
+  justify-content: center;
+  align-items: center;
+}
+.conteiner-save-name .conteiner-input-btn p {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.conteiner-save-name .conteiner-input-btn input {
+  width: 300px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+.conteiner-save-name .conteiner-input-btn button {
+  border: 1px solid white;
+}
+.conteiner-save-name.active {
+  visibility: visible;
+}
+
+.conteiner-confirm {
+  color: rgb(255, 255, 255);
+  display: flex;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+.conteiner-confirm.active {
+  visibility: visible;
+}
+.conteiner-confirm .block_info-confirm {
+  background-color: rgb(26, 24, 24);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+.conteiner-confirm .block_info-confirm h2 {
+  width: 100%;
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  border-bottom: 2px solid white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.conteiner-confirm .block_info-confirm p {
+  font-size: 1.3rem;
+  margin: 0 10px;
+}
+.conteiner-confirm .block_info-confirm .block-choice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-top: 2px solid white;
+  height: 69px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.conteiner-confirm .block_info-confirm .block-choice button {
+  background-color: rgb(202, 62, 20);
+  justify-content: center;
+  width: 40%;
+  height: 50px;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 1px solid rgb(0, 0, 0);
+}
+.conteiner-confirm .block_info-confirm .block-choice button:active {
+  transform: translateY(2px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.conteiner-confirm .block_info-confirm .block-choice button:hover {
+  background-color: rgba(202, 62, 20, 0.4);
+}
+
+.main {
+  margin-top: 30px;
+}
+
+.drawing-container {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+.drawing-container .conteiner__draw_exam {
+  display: flex;
+}
+.drawing-container .conteiner__draw_exam .drawing-container1 {
+  margin: 0 auto;
+  border: 2px solid #333;
+  border-right: 4px solid #333;
+  border-bottom: 4px solid #333;
+  width: 50%;
+  height: 700px;
+  overflow: hidden;
+  position: relative;
+}
+.drawing-container .conteiner__draw_exam #drawingCanvas {
+  position: absolute;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: url("/img/голка_white.svg"), crosshair;
+  width: 950px;
+  height: 100%;
+}
+.drawing-container .conteiner__draw_exam .conteiner__example {
+  border: 1px solid rgb(255, 255, 255);
+  position: relative;
+  width: 21%;
+  height: 700px;
+  background-color: rgb(26, 24, 24);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.drawing-container .conteiner__draw_exam .container__draw_real {
+  padding-bottom: 10px;
+  border-bottom: 2px rgb(255, 255, 255) solid;
+}
+.drawing-container .conteiner__draw_exam p {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+.drawing-container .conteiner__draw_exam .examples {
+  border-top: 1px rgb(255, 255, 255) solid;
+  text-align: center;
+  margin-top: 20px;
+}
+.drawing-container .conteiner__draw_exam .conteiner__result {
+  display: flex;
+  align-items: center;
+}
+.drawing-container .conteiner__draw_exam .conteiner-imagen {
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  background-color: white;
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.drawing-container .conteiner__draw_exam .conteiner-imagen:hover {
+  box-shadow: 0px 5px 20px 10px rgba(255, 255, 255, 0.3);
+}
+.drawing-container .conteiner__draw_exam .conteiner-imagen ._icon-increase {
+  border-radius: 0;
+  align-items: start;
+  padding: 5px;
+  font-size: 1rem;
+  background-color: white;
+  color: #000000;
+  width: 100%;
+}
+.drawing-container .conteiner__draw_exam .conteiner-imagen ._icon-increase:hover {
+  background-color: rgb(199, 112, 14);
+}
+.drawing-container .conteiner__draw_exam .example_draw {
+  margin: 5px;
+  width: 100px;
+  height: 82px;
+  background-color: white;
+  border: 1px solid black;
+}
+.drawing-container .conteiner__draw_exam .example_real {
+  margin: 5px;
+  width: 100px;
+  height: 82px;
+  background-color: white;
+  border: 1px solid black;
+  transition: all 0.2s ease-in-out;
+}
+.drawing-container .conteiner__draw_exam .example_real:hover {
+  box-shadow: 0 1px 20px rgba(255, 255, 255, 0.3);
+}
+.drawing-container .conteiner__draw_exam .first_con {
+  margin-left: 2%;
+  color: rgb(255, 255, 255);
+}
+.drawing-container .conteiner__draw_exam .second_con {
+  margin-right: 2%;
+}
+.drawing-container .conteiner__draw_exam .small__container-example {
+  display: none;
+}
+
+.controls {
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* Стилі для самого повзунка */
+  /* Стилі для кнопки (thumb) */
+}
+.controls #colorPicker {
+  display: block;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 500px;
+  max-width: 100%;
+  height: 65px;
+  background-color: rgb(199, 112, 14);
+  margin: 10px;
+}
+.controls #colorPicker:hover {
+  border-color: #aaa;
+}
+.controls #colorPicker:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+.controls #fillButton {
+  background-color: rgb(26, 24, 24);
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.3s ease-in-out; /* Плавний перехід */
+}
+.controls #fillButton:hover {
+  background-color: rgb(75, 45, 12);
+}
+.controls #fillButton.active {
+  color: rgb(255, 255, 255);
+  background-color: rgb(199, 112, 14);
+  border: 1px solid rgb(255, 255, 255);
+}
+.controls #fillButton:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.controls #draggingButton {
+  background-color: rgb(26, 24, 24);
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.3s ease-in-out; /* Плавний перехід */
+}
+.controls #draggingButton:hover {
+  background-color: rgb(75, 45, 12);
+}
+.controls #draggingButton.active {
+  color: rgb(255, 255, 255);
+  background-color: rgb(199, 112, 14);
+  border: 1px solid rgb(255, 255, 255);
+}
+.controls #draggingButton:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.controls #con__width {
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  display: block;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 10px;
+  background-color: rgb(39, 36, 36);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.controls input[type=range] {
+  margin-top: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(to right, rgb(224, 224, 224), rgb(199, 112, 14));
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Для Firefox */
+}
+.controls input[type=range]::-moz-range-thumb .controls input[type=range]::-ms-thumb {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 2px solid rgb(121, 85, 81);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.controls input[type=range]::-webkit-slider-thumb:hover {
+  background: rgb(59, 37, 34);
+  transform: scale(1.2);
+}
+.controls input[type=range]:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #fff; /* Використовуємо background-color для фону */
+  border: 2px solid rgb(121, 85, 81);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Тепер правильно вказана властивість */
+}
+.controls .tool {
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.3s ease-in-out; /* Плавний перехід */
+}
+.controls .tool.active {
+  background-color: rgb(199, 112, 14);
+  border: 1px solid rgb(255, 255, 255);
+}
+.controls .tool:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+
+button {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: rgb(26, 24, 24);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.2s linear;
+}
+button:hover {
+  background-color: rgb(75, 45, 12);
+}
+
+.button {
+  margin-top: 10px;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.9);
+  border: 2px solid rgb(0, 0, 0);
+  position: relative;
+  background-color: rgb(39, 36, 36);
+}
+
+.tooltip {
+  position: relative;
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.2s ease-in-out; /* Плавний перехід */
+}
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+.tooltip:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.conteiner_scale_price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.conteiner_scale_price .scale {
+  position: relative;
+  width: 50%;
+  margin-left: 20px;
+  font-size: 1.5rem;
+  align-self: center;
+  display: inline-block;
+}
+.conteiner_scale_price .scale .blocked_scale {
+  display: none;
+}
+.conteiner_scale_price .scale .blocked_scale.active {
+  display: flex;
+  right: 52%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  position: absolute;
+  width: 50%;
+  height: 98%;
+  align-items: center;
+  justify-content: center;
+}
+.conteiner_scale_price .scale .blocked_scale .blocked-info {
+  background-color: rgb(202, 62, 20);
+  font-size: 1.2rem;
+  width: 100px;
+  height: 50px;
+}
+.conteiner_scale_price .scale .scale_size {
+  position: relative;
+}
+.conteiner_scale_price .scale .scale__type {
+  position: relative;
+}
+.conteiner_scale_price .scale [class^=size__btn] {
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 1px solid rgb(0, 0, 0);
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.conteiner_scale_price .scale [class^=size__btn].red-line {
+  border: 1px solid red;
+  animation: blinkBorder 1s infinite alternate;
+}
+.conteiner_scale_price .scale [class^=size__btn].active {
+  background-color: rgb(202, 62, 20);
+  color: rgb(255, 255, 255);
+}
+.conteiner_scale_price .scale [class^=size__btn]:active {
+  transform: translateY(2px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.conteiner_scale_price .scale [class^=type__btn] {
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 1px solid rgb(0, 0, 0);
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.conteiner_scale_price .scale [class^=type__btn].red-line {
+  border: 1px solid red;
+  animation: blinkBorder 1s infinite alternate;
+}
+.conteiner_scale_price .scale [class^=type__btn]:active {
+  transform: translateY(2px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.conteiner_scale_price .scale [class^=type__btn].active {
+  background-color: rgb(202, 62, 20);
+  color: rgb(255, 255, 255);
+}
+.conteiner_scale_price .scale p {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.conteiner_scale_price .puffiness {
+  margin-right: 8px;
+}
+.conteiner_scale_price .text__scale {
+  padding-left: 10px;
+  color: rgb(255, 255, 255);
+}
+.conteiner_scale_price ._icon-info {
+  display: inline;
+  font-size: 1rem;
+  border-radius: none;
+  padding: none;
+  background-color: none;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  flex-direction: none;
+  align-items: center;
+  text-align: center;
+}
+
+.wrapper-info {
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  z-index: 9;
+  margin-bottom: 20px;
+  position: absolute;
+  left: 300px;
+  background-color: rgb(26, 24, 24);
+  width: 220px;
+  height: 400px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.wrapper-info.active {
+  opacity: 1;
+  visibility: visible;
+}
+.wrapper-info p {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  border-bottom: 1px rgb(255, 255, 255) solid;
+}
+.wrapper-info .conteiner-info {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  height: 82%;
+  position: relative;
+  border-radius: 10px;
+}
+.wrapper-info .conteiner-info img {
+  border-radius: 10px;
+  width: 150px;
+  height: 150px;
+}
+.wrapper-info .conteiner-info div {
+  margin: 5px;
+  position: relative;
+  font-size: 1.4rem;
+}
+
+.price {
+  position: relative;
+  display: flex;
+  font-size: 3rem;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+}
+.price .conteiner-price-order {
+  background-color: rgb(26, 24, 24);
+  border-radius: 10px;
+  width: 50%;
+  height: 100%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.price .container__price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  justify-content: center;
+}
+.price .textprice,
+.price #toyPrice {
+  display: inline;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+}
+
+#toyPrice {
+  font-size: 2.5rem;
+}
+
+.con__order {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.order__btn {
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 2px rgb(0, 0, 0) solid;
+  background-color: rgb(202, 62, 20);
+  width: 100%;
+  font-size: 2.5rem;
+}
+.order__btn:hover {
+  background-color: rgb(119, 39, 14);
+}
+.order__btn:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.order__btn.no-active {
+  display: none;
+}
+
+.processing-price {
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 2px rgb(0, 0, 0) solid;
+  background-color: rgb(202, 62, 20);
+  width: 100%;
+  font-size: 2.5rem;
+}
+.processing-price:hover {
+  background-color: rgb(119, 39, 14);
+}
+.processing-price:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+.processing-price.no-active {
+  display: none;
+}
+
+.add-to-cart {
+  width: 100%;
+  display: flex;
+  font-size: 2.5rem;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 2px rgb(0, 0, 0) solid;
+  background-color: rgb(202, 62, 20);
+}
+.add-to-cart:hover {
+  background-color: rgb(119, 39, 14);
+}
+.add-to-cart.no-active {
+  display: none;
+}
+
+.go-to-cart {
+  align-items: center;
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+  display: none;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(255, 255, 255, 0.12); /* Тінь для 3D ефекту */
+  border: 2px rgb(0, 0, 0) solid;
+  background-color: rgb(204, 204, 204);
+}
+.go-to-cart.active {
+  display: flex;
+  justify-content: center;
+}
+.go-to-cart p {
+  padding: 20px 0px 20px 0px;
+  -webkit-text-decoration: underline dashed;
+          text-decoration: underline dashed;
+  color: rgb(127, 127, 236);
+  position: relative;
+  cursor: pointer;
+}
+.go-to-cart p:hover {
+  color: red;
+}
+.go-to-cart.active {
+  visibility: visible;
+}
+
+.saved-images {
+  background-color: rgb(199, 112, 14);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+}
+
+.save-text {
+  background-color: rgb(199, 112, 14);
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+#clearCanvas {
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.2s ease-in-out; /* Плавний перехід */
+}
+#clearCanvas:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+
+#savedraw {
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.2s ease-in-out; /* Плавний перехід */
+}
+#savedraw:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+
+#newdraw {
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+  transition: all 0.2s ease-in-out; /* Плавний перехід */
+}
+#newdraw:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+
+#saveDrawing {
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12); /* Тінь для 3D ефекту */
+}
+#saveDrawing:active {
+  transform: translateY(4px); /* Зменшення кнопки вниз, як ефект натискання */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь зменшується, коли кнопка натискається */
+}
+
+.hover-bg {
+  z-index: 10;
+  background-color: rgb(107, 62, 10) !important;
+  transition: all 0.3s ease; /* Гладка анімація */
+}
+
+.error-save {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid white;
+  font-size: 1.5rem;
+  animation: typing 1s steps(20) forwards, blink 0.7s infinite, fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    color: white;
+  }
+  to {
+    color: red;
+  }
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 200px;
+  }
+}
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+@keyframes blinkBorder {
+  50% {
+    border-color: white;
+  }
+}
+.footer {
+  padding: 0 2%;
+  background-color: rgb(26, 24, 24);
+  max-width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-top {
+  flex-wrap: wrap;
+  display: flex;
+  padding-top: 30px;
+  width: 100%;
+  height: 75%;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.social {
+  color: rgb(168, 147, 147);
+  margin-bottom: 10px;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 200px;
+  height: 150px;
+  margin-right: 20px;
+  padding-right: 30px;
+}
+.social p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.social .btn-social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.social .btn-social span {
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 1.7rem;
+  margin-left: 10px;
+}
+.social .btn-social span:hover {
+  color: rgb(255, 255, 255);
+}
+
+.links {
+  padding-right: 30px;
+  color: rgb(168, 147, 147);
+  margin-bottom: 10px;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 200px;
+  height: 150px;
+}
+.links p {
+  font-size: 1.2rem;
+}
+.links .btn-links button {
+  color: rgb(62, 119, 170);
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: left;
+  padding: 0;
+}
+.links .btn-links button:hover {
+  color: rgb(202, 13, 13);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  width: 100%;
+  height: 25%;
+  position: relative;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+.footer-bottom p {
+  font-size: 1rem;
+  padding: 20px 0px;
+}
+
+@font-face {
+  font-family: "icons";
+  src: url("/fonts/icons.ttf") format("truetype"), url("/fonts/icons.woff") format("woff"), url("/fonts/icons.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=_icon-],
+[class*=" _icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 1.5rem;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+._icon-login::after {
+  content: "\e900";
+}
+
+._icon-basket::after {
+  content: "\e906";
+}
+
+._icon-eraser::after {
+  content: "\e907";
+}
+
+._icon-clear::after {
+  content: "\e901";
+}
+
+._icon-icon-save::after {
+  content: "\e902";
+  margin-top: 2px;
+}
+
+._icon-left-backward::after {
+  content: "\e903";
+}
+
+._icon-right-backward::after {
+  content: "\e904";
+}
+
+._icon-lang::after {
+  content: "\e905";
+}
+
+._icon-pencil::after {
+  content: "\e908";
+}
+
+._icon-fill::after {
+  content: "\e909";
+}
+
+._icon-arrow-right::after {
+  content: "\e90a";
+}
+
+._icon-info::after {
+  content: "\e90b";
+}
+
+._icon-youtube::after {
+  content: "\e90c";
+}
+
+._icon-telegram::after {
+  content: "\e90d";
+}
+
+._icon-facebook::after {
+  content: "\e90e";
+}
+
+._icon-instagram::after {
+  content: "\e90f";
+}
+
+._icon-tik-tok::after {
+  content: "\e910";
+}
+
+._icon-edit::after {
+  content: "\e911";
+}
+
+._icon-trash::after {
+  content: "\e912";
+}
+
+._icon-increase::after {
+  content: "\e913";
+}
+
+._icon-plus::after {
+  content: "\e914";
+}
+
+._icon-minus::after {
+  content: "\e915";
+}
+
+._icon-hand::after {
+  content: "\e916";
+}
+
+._icon-ratio .path1:after {
+  content: "\e917";
+  color: rgb(251, 251, 219);
+}
+
+._icon-ratio .path2:after {
+  content: "\e918";
+  color: rgb(99, 219, 171);
+}
+
+._icon-ratio .path3:after {
+  content: "\e919";
+  color: #4caf50;
+}
+
+._icon-ratio .path4:after {
+  content: "\e91a";
+  color: rgb(4, 203, 139);
+}
+
+._icon-ratio .path5:after {
+  content: "\e91b";
+  color: rgb(90, 132, 108);
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.central-wrapper {
+  background-blend-mode: multiply;
+  background-color: rgb(26, 24, 24);
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.blocked-block {
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 99%;
+  background-color: rgba(22, 22, 22, 0.5);
+  visibility: visible;
+  transition: visibility 0.5s ease;
+}
+.blocked-block.active {
+  visibility: hidden;
+}
+
+.outlet-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.blocked-block-main {
+  width: 100%;
+  height: 11%;
+  position: relative;
+  background-color: black;
+}
+
+@media (max-width: 1200px) {
+  .large-img {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 10%;
+    z-index: 2;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    visibility: hidden;
+  }
+  .large-img #close-button-modal {
+    border: 2px solid rgb(26, 24, 24);
+  }
+  .large-img .conteiner-large {
+    border-radius: 10px;
+  }
+  .large-img .conteiner-large img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+  .main .drawing-container {
+    padding: 0 0 0;
+  }
+  .main .drawing-container .drawing-container1 {
+    width: 80%;
+    height: 700px;
+  }
+  .main .controls button {
+    width: 8%;
+  }
+  .main .conteiner__draw_exam {
+    display: flex;
+    flex-direction: column;
+  }
+  .main .conteiner__draw_exam .conteiner__example {
+    display: none;
+  }
+  .main .conteiner__draw_exam .small__container-example {
+    position: relative;
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    width: -moz-max-content;
+    width: max-content;
+    background-color: rgb(26, 24, 24);
+    white-space: nowrap; /* Забороняє перенос рядків */
+    border-bottom: 4px white solid;
+  }
+  .main .conteiner__draw_exam .small__container-example .container__draw_real {
+    width: -moz-max-content;
+    width: max-content;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    overflow: auto;
+    position: relative;
+    border-bottom: none;
+  }
+  .main .conteiner__draw_exam .small__container-example .examples__small {
+    width: 250px;
+    margin-top: 10px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-right: 2px solid #ffffff;
+  }
+  .main .conteiner__draw_exam .small__container-example .examples__small p {
+    text-align: center;
+  }
+  #blocked_scale {
+    right: 42%;
+    width: 60%;
+  }
+}
+@media (max-width: 1024px) {
+  header #con__sticky {
+    flex-direction: row;
+    padding-top: 0px;
+    width: 100%;
+  }
+  header #title-header {
+    font-size: 1.8rem;
+  }
+  .conteiner-reg {
+    width: 60%; /* Менша ширина */
+    height: -moz-max-content;
+    height: max-content; /* Висота автоматично підлаштовується */
+  }
+  .main .container button {
+    font-size: 1.2rem;
+    padding: 8px 12px;
+  }
+  .main .conteiner_scale_price .price {
+    font-size: 1.5rem;
+    width: 50%;
+  }
+  .main .conteiner_scale_price .price #toyPrice {
+    font-size: 2rem;
+  }
+  .main .conteiner_scale_price .price .con__order {
+    width: 100%;
+  }
+  .main .conteiner_scale_price .price .con__order .order__btn {
+    font-size: 2rem;
+    width: 100%;
+  }
+  .main .controls {
+    flex-wrap: wrap;
+  }
+  .main .controls button {
+    font-size: 1.2rem;
+    width: 20%;
+  }
+  .main #colorPicker {
+    width: 15%;
+    height: 70px;
+  }
+  #blocked_scale {
+    right: 27%;
+    width: 76%;
+  }
+}
+@media (max-width: 798px) {
+  .conteiner-menu {
+    z-index: 3;
+    left: -100%;
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .conteiner-menu.active {
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .conteiner-menu .menu_body {
+    display: flex;
+    z-index: 2;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    background-color: #2c2c2c;
+    width: 320px;
+    height: 100%;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+  }
+  .conteiner-menu .menu_body.open {
+    left: -320px;
+  }
+  .conteiner-menu .menu_body.active {
+    left: 0;
+  }
+  .conteiner-menu .menu_body .header-menu {
+    background-color: #201f1f;
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: end;
+  }
+  .conteiner-menu .menu_body .header-menu .header__logo-menu {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid rgb(26, 24, 24);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-size: 10px;
+    margin: 10px;
+  }
+  .conteiner-menu .menu_body .header-menu .header__logo-menu img {
+    width: 80%;
+    height: auto;
+  }
+  .conteiner-menu .menu_body .header-menu .title-menu {
+    color: white;
+    align-self: center;
+    font-size: 1.5rem;
+    margin: 10px;
+  }
+  .conteiner-menu .menu_body .header-menu .close-button {
+    color: #fff; /* Колір хрестика */
+    font-size: 1.7rem; /* Розмір хрестика */
+    cursor: pointer;
+    background-color: transparent;
+  }
+  .conteiner-menu .menu_body .header-menu .close-button:hover {
+    color: red; /* Колір хрестика при наведенні */
+  }
+  .conteiner-menu .menu_body .menu__list {
+    list-style: none;
+    display: block;
+    width: 100%;
+  }
+  .conteiner-menu .menu_body .menu__list li {
+    border-bottom: 1px white solid;
+  }
+  .conteiner-menu .menu_body .menu__list li button {
+    position: sticky;
+    width: 100%;
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+  .conteiner-menu .menu_body .menu__list li button:hover {
+    background-color: rgb(43, 30, 28);
+  }
+  header .con__sticky {
+    padding-top: 0;
+  }
+  header .burger-menu {
+    padding: 10px;
+    display: block; /* Відображаємо бургер-меню */
+    cursor: pointer;
+    width: 30px;
+    height: 50px;
+    position: relative; /* Важливо для позиціонування span */
+  }
+  header .burger-menu .home,
+  header .burger-menu .shop,
+  header .burger-menu .constructor,
+  header .burger-menu .faq {
+    font-size: 1.2rem;
+  }
+  header .burger-menu span {
+    display: block;
+    width: 100%;
+    height: 10%;
+    background-color: #eee; /* Колір ліній */
+    margin: 5px 0; /* Відстань між лініями */
+    transition: all 0.3s ease; /* Анімація при кліці */
+  }
+  header .burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px); /* Верхня лінія */
+  }
+  header .burger-menu.active span:nth-child(2) {
+    opacity: 0; /* Середня лінія зникає */
+  }
+  header .burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px); /* Нижня лінія */
+  }
+  header #menu__list-inside {
+    display: none;
+  }
+  header .title {
+    font-size: 1.3rem;
+  }
+  main .drawing-container .conteiner__draw_exam .drawing-container1 {
+    width: 90%;
+    height: 700px;
+  }
+  main button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+  main .wrapper-info {
+    left: 270px;
+  }
+  main .controls {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  main .controls button {
+    width: 20%;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  main .controls .con__width {
+    width: 100%;
+  }
+  main .price {
+    width: 100%;
+    text-align: center;
+  }
+  main .price .conteiner-price-order {
+    width: 70%;
+  }
+  main .price .conteiner-price-order .container__price {
+    font-size: 1.5rem;
+    width: 100%;
+  }
+  main .price .conteiner-price-order #toyPrice {
+    font-size: 2rem;
+  }
+  main .price .conteiner-price-order .order__btn {
+    font-size: 2rem;
+  }
+  [class^=size__btn] {
+    width: 60px;
+  }
+  #blocked_scale {
+    right: 10px;
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  #sign-up {
+    width: 90%;
+    height: 800px;
+    top: 10vh; /* Щоб не зрізало зверху */
+    bottom: 0vh; /* Додаємо обмеження по висоті */
+    left: 50%;
+    transform: translateX(-50%); /* Центруємо лише по горизонталі */
+  }
+  .large-img {
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+  }
+  .large-img #close-button-modal {
+    border: 2px solid rgb(26, 24, 24);
+  }
+  .large-img .conteiner-large {
+    border-radius: 10px;
+  }
+  .large-img .conteiner-large img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+  .conteiner-save-name .conteiner-input-btn {
+    width: 100%;
+  }
+  header #title-header {
+    font-size: 1.3rem;
+    margin: 0 10px;
+  }
+  header .burger-menu {
+    margin-right: 8px;
+  }
+  header .home,
+  header .shop,
+  header .constructor,
+  header .faq {
+    font-size: 0.9rem;
+  }
+  header .con__sticky {
+    padding: 0px;
+  }
+  header .peronality {
+    padding-right: 0px;
+  }
+  header .peronality #icon-lang,
+  header .peronality #basket {
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  header #btn-reg {
+    display: none;
+  }
+  main button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  main .drawing-container .conteiner__draw_exam .drawing-container1 {
+    width: 95%;
+    height: 700px;
+  }
+  main .button {
+    width: 99%;
+  }
+  main .button .wrapper-info {
+    left: 0;
+    width: 100%;
+    height: 400px;
+  }
+  main .controls button {
+    width: 20%;
+    padding: 5px;
+    font-size: 0.9rem;
+  }
+  main .controls #colorPicker {
+    width: 20%;
+    height: 50px;
+  }
+  main .conteiner_scale_price {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  main .conteiner_scale_price .scale {
+    display: flex;
+    width: 100%;
+  }
+  main .conteiner_scale_price .scale .scale_size {
+    width: 40%;
+  }
+  main .conteiner_scale_price .price {
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 90% !important;
+  }
+  main .conteiner_scale_price .conteiner-price-order {
+    width: 100%;
+  }
+  #blocked_scale {
+    right: 20px;
+    width: 100%;
+  }
+}
+@media (max-width: 200px) {
+  header .con__sticky {
+    flex-direction: column;
+    padding: 0px;
+  }
+  main .scale {
+    display: flex;
+    flex-wrap: wrap;
+    left: 0px;
+  }
+  main .price {
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+  }
+  main .price .price {
+    width: 100%;
+  }
+  main #toyPrice {
+    font-size: 1.2rem;
+  }
+  main [class^=_icon-]::after,
+  main [class*=" _icon-"]::after {
+    font-size: 1rem;
+  }
+  main .button {
+    width: 100%;
+  }
+  main .controls {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+  main .controls button {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+  }
+}
+@media (max-height: 550px) {
+  #sign-up {
+    width: 90%;
+    height: 100%;
+    top: 0vh; /* Щоб не зрізало зверху */
+    bottom: 0vh; /* Додаємо обмеження по висоті */
+    left: 50%;
+    transform: translateX(-50%); /* Центруємо лише по горизонталі */
+  }
+}

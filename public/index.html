@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<title>Конструктор</title>
+</head>
+
+<body>
+	<div class="central-wrapper" id="central-wrapper">
+		<div class="blocked-block" id="blocked-block"></div>
+		<div class="cart-modal">
+			<div class="cart-content">
+				<span class="close" id="close-btn-cart">&times;</span>
+				<div class="cart-header">
+					<h2>Кошик</h2>
+				</div>
+				<div class="cart-content-inside">
+
+					<div id="cart-container"></div>
+					<button class="checkout" id="checkout-btn">Оформити
+						замовлення</button>
+				</div>
+			</div>
+		</div>
+		<div class="conteiner-menu" id="conteiner-menu">
+			<nav class="menu_body">
+				<div class="header-menu">
+					<div class="header__logo-menu">
+						<img src="" alt="Логотип" />
+					</div>
+					<div class="title-menu" data-lang="title">
+						Супер Іграшки
+					</div>
+					<button class="close-button" id="close-button">&times;</button>
+				</div>
+				<button class="login btn-reg" id="btn-reg2" onclick="RegMenu()">
+					<p>Увійти</p>
+
+				</button>
+				<ul class="menu__list">
+					<li><button class="home " data-lang="home">Головна</button></li>
+					<li><button class="shop" data-lang="shop">Магазин</button></li>
+					<li><button class="constructor" data-lang="constructor">Конструктор</button></li>
+					<li><button class="faq" data-lang="faq">FAQ</button></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="all_conteiner_reg">
+			<div class="conteiner-login" id="sign-up">
+				<button class="close-button-reg" id="close-button-reg">&times;</button>
+				<h3>Увійти</h3>
+
+				<nav class="reg-window">
+					<div class="reg-form">
+						<div class="nickname">
+							<p>Логін</p>
+							<div class="conteiner-area-name">
+								<input type="text" id="name-input">
+							</div>
+						</div>
+
+						<div class="password">
+							<p>Пароль</p>
+							<div class="conteiner-area-password">
+								<input type="password" id="password-input">
+								<button type="button" id="togglePassword" class="toggle-password">
+									<img id="eye" src="img/eye-crossed.svg" alt=" " style="width: 20px; height: 20px;">
+								</button>
+							</div>
+						</div>
+
+						<a href=""> Забули свій пароль?</a>
+
+						<button id="sign-in">Увійти</button>
+					</div>
+				</nav>
+				<div class="con_other_reg">
+					<div class="reg-other">або увійти</div>
+
+					<script src="https://accounts.google.com/gsi/client" async defer></script>
+					<div id="g_id_onload"
+						data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+						data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+						data-auto_prompt="false">
+					</div>
+					<div class="g_id_signin" data-type="standard"></div>
+				</div>
+				<p class="switch-to-register" id="switch-to-register">Не маєте облікового запису?
+					<span>Зареєструйтесь</span>
+				</p>
+			</div>
+
+			<div class="conteiner-reg" id="sign-up-first">
+				<button class="close-button-reg" id="close-button-reg-first">&times;</button>
+				<h3>Зареєструватися</h3>
+
+				<nav class="reg-window">
+					<div class="reg-form">
+						<div class="nickname">
+							<p>Логін</p>
+							<div class="conteiner-area-name">
+								<input type="text" id="name-input-first">
+							</div>
+						</div>
+
+						<div class="password">
+							<p>Пароль</p>
+							<div class="conteiner-area-password">
+								<input type="password" id="password-input-first">
+								<button type="button" id="togglePassword-first" class="toggle-password">
+									<img id="eye-first" src="img/eye-crossed.svg" alt=" " style="width: 20px; height: 20px;">
+								</button>
+							</div>
+						</div>
+
+						<div class="phone">
+							<p>Телефон</p>
+							<div class="conteiner-area-phone">
+								<input type="tel" id="phone-input-first" pattern="[0-9]{10}" required>
+							</div>
+						</div>
+
+						<button id="sign-in-first">Зареєструватись</button>
+					</div>
+				</nav>
+				<div class="con_other_reg">
+					<div class="reg-other">або зареєструватись</div>
+
+					<script src="https://accounts.google.com/gsi/client" async defer></script>
+					<div id="g_id_onload"
+						data-client_id="285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com"
+						data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+						data-auto_prompt="false">
+					</div>
+					<div class="g_id_signin" data-type="standard"></div>
+				</div>
+				<p class="switch-to-login" id="switch-to-login">Маєте обліковий запис? <span>Увійти</span></p>
+			</div>
+
+		</div>
+
+		<div class="large-img" id="imageModal">
+			<button class="close-button" id="close-button-modal">&times;</button>
+			<div class="conteiner-large">
+				<img src="" alt="Збільшене зображення" id="largeImage">
+			</div>
+		</div>
+		<div class="conteiner-save-name" id="saveName">
+			<div class="conteiner-input-btn" id="block-name">
+				<p>Назвіть ваш малюнок</p>
+				<input type="text" id="nameInput">
+				<button id="saveDrawing">Зберегти</button>
+			</div>
+		</div>
+		<div class="conteiner-confirm">
+			<div class="block_info-confirm">
+				<h2>Увага</h2>
+				<p>Якщо ви оціните замовлення, змінити розмір і тип ниток вже не вдасться!
+				</p>
+
+				<p style="font-size: 1.5rem; border-top: 2px solid white; padding-top: 10px; text-align:center;">Ви
+					впевнені, що хочете оцінити
+					свій
+					малюнок?</p>
+				<div class="block-choice">
+					<button onclick="CloseConfirm()">Ні</button>
+					<button id="order__btn_confirm"> Так</button>
+				</div>
+
+			</div>
+		</div>
+		<div class="dop-content">
+
+		</div>
+
+		<div class="outlet-wrapper">
+
+			<div id="header-container"></div>
+
+
+
+			<main class="main">
+
+				<div class="drawing-container">
+					<div class="conteiner__draw_exam">
+						<div class="conteiner__example first_con">
+							<div class="container__draw_real">
+								<div class="examples ">
+									<p>Амням</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/амням.jpg" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Гриби</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/гриби.jpg" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="small__container-example">
+
+							<div class="container__draw_real" id="slider-track">
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples__small  ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="/img/examples/Common threads.JPG" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="/img/examples/puffiness.jpg" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="drawing-container1">
+							<canvas id="drawingCanvas"></canvas>
+						</div>
+						<div class="conteiner__example second_con">
+							<div class="container__draw_real">
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+								<div class="examples ">
+									<p>Якась іграшка</p>
+									<div class="conteiner__result">
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_draw">
+											<button class="_icon-increase"></button>
+										</div>
+										<span class="_icon-arrow-right"></span>
+										<div class="conteiner-imagen">
+											<img src="" alt="" class="example_real">
+											<button class="_icon-increase"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="button">
+						<div class="wrapper-info" id="menu-info-first">
+							<p>Звичайні нитки</p>
+							<div class="conteiner-info">
+
+								<img src="./img/examples/Common threads.JPG" alt="">
+								<div>це гладка пряжа з рівною структурою,
+									виготовлена
+									з натуральних,
+									синтетичних або змішаних волокон. Вона підходить для створення чітких візерунків
+									і
+									добре тримає форму, ідеальна для початківців.</div>
+							</div>
+						</div>
+						<div class="wrapper-info" id="menu-info-second">
+							<p>Пухнасті нитки</p>
+							<div class="conteiner-info">
+
+								<img src="./img/examples/puffiness.jpg" alt="">
+								<div>це пряжа з ворсом, що надає виробам м’якості та об’ємності. Виготовляється з матеріалів,
+									як-от мохер, альпака чи акрил, і створює легкі, теплі та повітряні речі, але в’язати з нею
+									складніше через приховані петлі.</div>
+							</div>
+						</div>
+						<div class="controls">
+							<input type="color" id="colorPicker">
+							<button id="penButton" class="tool" onclick="togglePen()">Олівець
+								<span class="_icon-pencil"></span>
+							</button>
+							<button data-lang="eras" id="eraser" class="tool" onclick="toggleEraser()"> Стирачка
+								<span class="_icon-eraser"></span>
+							</button>
+							<button id="fillButton" class="tool" onclick="toggleFill()">Заливка
+								<span class="_icon-fill"></span>
+							</button>
+							<button data-lang="dragging" id="draggingButton" class="tool"> Рука
+								<span class="_icon-hand"></span>
+							</button>
+							<div id="con__width">
+								<label for="lineWidth">
+									<p style="padding-top:5px;">Товщина лінії:</p>
+								</label>
+								<input type="range" id="lineWidth" min="1" max="30" value="5" step="1">
+								<span id="lineWidthValue">5</span>
+							</div>
+
+							<button id="undo" data-tooltip="Скасувати останню дію (CTRL + Z)" data-lang="undo" class="tooltip">
+								Назад
+								<span class="_icon-left-backward"></span>
+							</button>
+							<button id="redo" data-tooltip="Повторює останню скасовану дію" data-lang="redo"
+								class="tooltip">Вперед
+								<span class="_icon-right-backward"></span>
+							</button>
+
+							<button id="clearCanvas" data-lang="cleans">
+								<span class="_icon-clear"></span>
+							</button>
+							<button data-lang="savedraw" onclick="toggleSave()" id="savedraw">Зберегти
+								<span class="_icon-icon-save"></span>
+							</button>
+							<button data-lang="newdraw" onclick="toggleNewDraw()" id="newdraw">Створити новий малюнок
+							</button>
+						</div>
+
+						<div class="conteiner_scale_price">
+							<div class="scale">
+								<div class="blocked_scale" id="blocked_scale">
+									<button class="blocked-info"> заблоковано</button>
+								</div>
+								<div class="scale_size">
+									<p class="text__scale">Розмір:</p>
+									<button class="size__btn size__min">15 см</button>
+									<button class="size__btn size__middle">25 см</button>
+									<button class="size__btn size__large">30 см</button>
+								</div>
+								<div class="scale__type" id="btn-common">
+									<p class="text__scale">Тип ниток:</p>
+									<button class="type__btn common" id="btn-common" onclick="InfoCommon()">звичайні
+										<span class="_icon-info"></span>
+
+									</button>
+									<button class="type__btn puffiness" onclick="InfoPuffiness()">пухнасті
+										<span class="_icon-info"></span>
+									</button>
+
+								</div>
+							</div>
+							<div class="price">
+								<div class="conteiner-price-order">
+									<div class="container__price">
+										<span class="textprice">ЦІНА</span>
+										<input type="text" id="toyPrice" class="product" value="0 грн " data-price="0" readonly>
+									</div>
+									<div class="con__order">
+										<button class="order__btn" id="order__btn"> Оцінити замовлення</button>
+										<button class="processing-price" id="processing-price"> Перевірити ціну</button>
+										<button class="add-to-cart"> Купити</button>
+										<div class="go-to-cart">
+											<p id="link-to-cart">В кошику</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<h2 class="save-text" data-lang="savetex">Збережені малюнки</h2>
+					<div class="saved-images" id="savedImages">
+
+					</div>
+					<footer class="footer">
+						<div class="footer-top">
+							<div class="social">
+								<p>Ми в соціальних мережах</p>
+								<div class="btn-social">
+									<span class=" _icon-youtube" title="Youtube" aria-label="Youtube"></span>
+									<span class="_icon-telegram" title="Telegram" aria-label="Telegram"></span>
+									<span class="_icon-instagram" title="Instagram" aria-label="Instagram"></span>
+									<span class="_icon-tik-tok" title="Tik-Tok" aria-label="Tik-Tok"></span></span>
+									<span class="_icon-facebook" title="Facebook" aria-label="Facebook"></span>
+								</div>
+							</div>
+							<div class="links">
+								<p>Інформація про компанію</p>
+								<div class="btn-links">
+									<button>Про нас</button>
+									<button>Умови використання сайту</button>
+									<button>Контакти</button>
+								</div>
+							</div>
+						</div>
+						<div class="footer-bottom">
+							<p>© 2025 Інтернет-магазин «Papluschins™» </p>
+						</div>
+					</footer>
+
+				</div>
+			</main>
+
+		</div>
+
+	</div>
+	<script src="Js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+	<script src="Js/google.js"></script>
+	<script src="Js/canvas.js"></script>
+
+
+
+
+
+</body>
+
+</html>
