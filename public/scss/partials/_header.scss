@@ -1,0 +1,756 @@
+$secondary-color: rgb(26, 24, 24);
+$back-color: rgb(199, 112, 14);
+$border-color: rgb(255, 255, 255);
+$text-color: rgb(255, 255, 255);
+$btn-color: rgb(202, 62, 20);
+$hover-color: rgb(75, 45, 12);
+$button-padding: 10px 20px;
+$font-size-large: 1.5rem;
+$font-size-medium: 1rem;
+$logo-bg: #fff;
+
+.cart-modal {
+	z-index: 10;
+	display: flex; // Початково приховане
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		visibility 0.5s ease,
+		opacity 0.5s ease;
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+	}
+	.cart-header {
+		display: flex;
+		width: 100%;
+		border-bottom: 1px solid white;
+		padding-bottom: 6px;
+		h2 {
+			margin-left: 20px;
+			margin-top: 10px;
+			display: flex;
+			align-self: start;
+			padding: 10px 0px;
+			font-size: 1.5rem;
+		}
+	}
+	.cart-content {
+		color: $text-color;
+		background: $secondary-color;
+		border: 3px solid $back-color;
+		width: 900px;
+		height: 600px;
+		border-radius: 10px;
+		box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		overflow: auto;
+		.item-buy-cart {
+			display: flex;
+			position: relative;
+			justify-content: space-between;
+			flex-direction: column;
+			padding: 20px;
+			margin: 20px 0;
+			border: 1px solid white;
+			border-radius: 10px;
+			width: 90%;
+			.menu-container-cart {
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+			.menu-btn-cart {
+				position: relative;
+				display: flex;
+			}
+			.menu-options-cart {
+				display: flex; /* Приховане за замовчуванням */
+				justify-self: flex-end;
+				position: absolute;
+				width: 200px;
+				top: 0;
+				right: 100%;
+				border-radius: 10px;
+				border: 1px solid #ccc;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+				z-index: 10; /* Щоб меню було поверх інших елементів */
+				visibility: hidden;
+				&.active {
+					visibility: visible;
+				}
+			}
+			.menu-button-cart {
+				width: 40px;
+				font-size: 1.5rem;
+				justify-self: flex-end;
+				cursor: pointer;
+			}
+			.btn-cart-item-remove {
+				border-radius: 10px;
+				display: block;
+				width: 100%;
+				text-align: left;
+				cursor: pointer;
+
+				background-color: $btn-color;
+				&:hover {
+					background-color: rgb(119, 39, 14);
+				}
+			}
+			.quantity-price {
+				position: relative;
+				display: flex;
+				justify-content: flex-end;
+				width: 100%;
+				align-items: center;
+				& button {
+					&span {
+						font-size: 1.5rem;
+					}
+				}
+				.inpt-quantity {
+					-moz-appearance: textfield; /* Для Firefox */
+					appearance: textfield;
+					font-size: 1.3rem;
+					padding: 1px 12px;
+					margin: 0 4px;
+					width: 20px;
+					color: white;
+					border-radius: 10px;
+					text-align: center;
+					border: 1px solid white;
+					background-color: $secondary-color;
+				}
+				input[type="number"]::-webkit-inner-spin-button,
+				input[type="number"]::-webkit-outer-spin-button {
+					-webkit-appearance: none; /* Приховати стрілочки */
+					margin: 0; /* Видалити відступи */
+				}
+			}
+		}
+	}
+	.close {
+		position: absolute;
+		border-radius: 10px;
+		padding: 15px 20px;
+		align-self: self-end;
+		font-size: 2rem;
+		cursor: pointer;
+		transition:
+			color 0.2s linear,
+			background-color 0.3s linear;
+		&:hover {
+			color: red;
+			background-color: rgba(75, 45, 12, 0.5);
+		}
+	}
+	.cart-content-inside {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 0px 20px;
+		height: 100%;
+		#cart-container {
+			display: flex;
+			position: relative;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		a {
+			color: white;
+			font-size: 1.2rem;
+			border: none;
+		}
+		.checkout {
+			width: 100%;
+			background: $btn-color;
+			color: white;
+			margin-bottom: 10px;
+			padding: 10px 20px;
+			font-size: 1.2rem;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+			transition: background 0.3s;
+
+			&:hover {
+				background: $hover-color;
+			}
+		}
+	}
+}
+
+// Анімації
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+.dop-content {
+	z-index: 2;
+	width: 100%;
+	height: 11%;
+	position: relative;
+	background-color: $back-color;
+}
+// Загальний стиль для хедера
+.header {
+	z-index: 2;
+	position: sticky;
+	top: 0px;
+	width: 100%;
+	display: flex;
+	background-color: $secondary-color;
+	justify-content: center;
+	border-bottom: 2px solid $border-color;
+	border-top: 2px solid $secondary-color;
+	.con__sticky {
+		padding-top: 0px;
+		display: flex;
+		width: 80%;
+		justify-content: space-between;
+		background-color: transparent;
+		align-items: center;
+		top: 0;
+	}
+
+	// Логотип
+	.header__logo {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%; // Круглий фон
+		background-color: $logo-bg;
+		border: 2px solid $secondary-color;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		margin-bottom: 5px;
+
+		img {
+			width: 80%;
+			height: auto;
+		}
+	}
+
+	// Назва
+	.title {
+		color: $text-color;
+		font-size: 2rem;
+		margin: 0 10px;
+	}
+
+	// Мова
+	.conlang {
+		position: relative;
+		#lang-toggle {
+			color: $text-color;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+
+			span {
+				font-size: 1.8rem;
+			}
+		}
+
+		.lang-options {
+			background-color: $btn-color;
+			position: absolute;
+			color: $text-color;
+			border: 1px solid #612d2d;
+			border-radius: 5px;
+			box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+			display: flex;
+			flex-direction: column;
+
+			button {
+				padding: 10px;
+				border-radius: 5px;
+				background: none;
+				border: none;
+				text-align: left;
+				cursor: pointer;
+
+				&:hover {
+					background-color: $secondary-color;
+				}
+			}
+		}
+
+		.hidden {
+			display: none;
+		}
+	}
+	.menu__list-inside {
+		display: flex;
+	}
+	.menu__list-inside > li,
+	.menu__list > li {
+		border-right: 1px $border-color solid;
+		position: relative;
+		font-size: 27px;
+	}
+}
+.peronality {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	span {
+		margin: 10;
+		color: $text-color;
+		font-size: 2rem;
+		text-align: center;
+	}
+}
+
+.conteiner-menu {
+	display: none;
+}
+.menu_body {
+	display: none;
+}
+.all_conteiner_reg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgb(2, 2, 2, 0.5);
+	z-index: 4;
+	visibility: hidden;
+	opacity: 0;
+	transition:
+		visibility 0.5s ease,
+		opacity 0.5s ease;
+	&.active {
+		visibility: visible;
+		opacity: 1;
+	}
+	.conteiner-login {
+		border: 3px solid $back-color;
+		font-family: Arial, Helvetica, sans-serif;
+		color: rgb(163, 147, 147);
+		font-size: $font-size-large;
+		z-index: 4;
+		width: 90%;
+		max-width: max-content;
+
+		max-height: max-content;
+		display: flex;
+		background-color: rgb(34, 24, 24);
+		position: fixed;
+		top: 10vh; /* Щоб не зрізало зверху */
+		bottom: 10vh; /* Додаємо обмеження по висоті */
+		left: 50%;
+		transform: translateX(-50%); /* Центруємо лише по горизонталі */
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 10px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		flex-direction: column;
+		gap: 5px;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.5s ease,
+			visibility 0.5s ease;
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+		#close-button-reg {
+			align-self: self-end;
+			font-size: 2rem;
+		}
+		h3 {
+			font-size: 2rem;
+			color: $text-color;
+			font-weight: bold;
+		}
+		.all_reg {
+			z-index: 11;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			display: flex;
+
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+		.reg-window {
+			/* Вікно над напівпрозорим фоном */
+			overflow: auto;
+			border-radius: 10px;
+			min-height: 100px;
+			width: 100%;
+			max-width: 500px;
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			.reg-form {
+				display: flex;
+				flex-direction: column;
+				gap: 30px; /* Відстань між полями форми */
+			}
+			p {
+				margin-bottom: 10px;
+			}
+			.nickname,
+			.password {
+				padding-left: 25px;
+				padding-right: 25px;
+				font-size: 1.3rem;
+				display: flex;
+				flex-direction: column;
+			}
+
+			#name-input,
+			#password-input {
+				color: $text-color;
+				background-color: rgb(109, 106, 106);
+				padding-right: 20px;
+				padding-left: 10px;
+				height: 40px;
+				font-size: 1.3rem;
+
+				box-sizing: border-box;
+			}
+			#name-input {
+				border-radius: 5px;
+				width: 100%;
+			}
+			.conteiner-area-name,
+			.conteiner-area-password {
+				border: 1px solid transparent;
+				border-radius: 5px;
+				display: flex;
+				flex-direction: row;
+				position: relative;
+				white-space: nowrap;
+				transition:
+					border 0.1s ease,
+					border-width 0.1s ease,
+					box-shadow 0.1s ease;
+			}
+			.conteiner-area-password,
+			.conteiner-area-name {
+				&:hover {
+					border-color: $border-color;
+				}
+				&:focus-within {
+					border-width: 2px;
+					border-color: $border-color;
+				}
+				&:focus:not(:focus-visible) {
+					outline: none;
+				}
+			}
+			#password-input {
+				display: flex;
+				width: 90%;
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+			.toggle-password {
+				transition: none;
+				background-color: rgb(109, 106, 106);
+				width: 10%;
+				height: 40px;
+				border-top-left-radius: 0px;
+				border-bottom-left-radius: 0px;
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+				border: none;
+			}
+
+			a {
+				font-size: 1rem;
+				padding-left: 25px;
+				color: #26bbff;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+			#sign-in {
+				letter-spacing: 2px;
+				font-size: 1.4rem;
+				font-weight: 600;
+				width: 100%;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				background-color: #444;
+				color: rgb(0, 0, 0);
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+
+				&:hover {
+					background-color: rgb(151, 148, 148);
+				}
+			}
+		}
+		.con_other_reg {
+			margin-bottom: 20px;
+		}
+		.reg-other {
+			justify-self: center;
+			display: flex;
+			font-size: 1rem;
+			padding-bottom: 10px;
+			&::before,
+			&::after {
+				margin: 0 10px;
+				content: "\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0";
+				text-decoration: line-through;
+			}
+		}
+	}
+	.conteiner-reg {
+		border: 3px solid $back-color;
+		font-family: Arial, Helvetica, sans-serif;
+		color: rgb(163, 147, 147);
+		font-size: $font-size-large;
+		z-index: 4;
+		width: 90%;
+		max-width: max-content;
+
+		max-height: max-content;
+		display: flex;
+		background-color: rgb(34, 24, 24);
+		position: fixed;
+		top: 10vh; /* Щоб не зрізало зверху */
+		bottom: 10vh; /* Додаємо обмеження по висоті */
+		left: 50%;
+		transform: translateX(-50%); /* Центруємо лише по горизонталі */
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 10px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		flex-direction: column;
+		gap: 5px;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.5s ease,
+			visibility 0.5s ease;
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+		#close-button-reg-first {
+			align-self: self-end;
+			font-size: 2rem;
+		}
+		h3 {
+			font-size: 2rem;
+			color: $text-color;
+			font-weight: bold;
+		}
+		.all_reg {
+			z-index: 11;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			display: flex;
+
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+		.reg-window {
+			/* Вікно над напівпрозорим фоном */
+			overflow: auto;
+			border-radius: 10px;
+			min-height: 100px;
+			width: 100%;
+			max-width: 500px;
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			.reg-form {
+				display: flex;
+				flex-direction: column;
+				gap: 30px; /* Відстань між полями форми */
+			}
+			p {
+				margin-bottom: 10px;
+			}
+			.phone,
+			.nickname,
+			.password {
+				padding-left: 25px;
+				padding-right: 25px;
+				font-size: 1.3rem;
+				display: flex;
+				flex-direction: column;
+			}
+			#phone-input-first,
+			#name-input-first,
+			#password-input-first {
+				color: $text-color;
+				background-color: rgb(109, 106, 106);
+				padding-right: 20px;
+				padding-left: 10px;
+				height: 40px;
+				font-size: 1.3rem;
+
+				box-sizing: border-box;
+			}
+			#phone-input-first,
+			#name-input-first {
+				border-radius: 5px;
+				width: 100%;
+			}
+			.conteiner-area-phone,
+			.conteiner-area-name,
+			.conteiner-area-password {
+				border: 1px solid transparent;
+				border-radius: 5px;
+				display: flex;
+				flex-direction: row;
+				position: relative;
+				white-space: nowrap;
+				transition:
+					border 0.1s ease,
+					border-width 0.1s ease,
+					box-shadow 0.1s ease;
+			}
+			.conteiner-area-phone,
+			.conteiner-area-password,
+			.conteiner-area-name {
+				&:hover {
+					border-color: $border-color;
+				}
+				&:focus-within {
+					border-width: 2px;
+					border-color: $border-color;
+				}
+				&:focus:not(:focus-visible) {
+					outline: none;
+				}
+			}
+			#password-input-first {
+				display: flex;
+				width: 90%;
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+			.toggle-password {
+				transition: none;
+				background-color: rgb(109, 106, 106);
+				width: 10%;
+				height: 40px;
+				border-top-left-radius: 0px;
+				border-bottom-left-radius: 0px;
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+				border: none;
+			}
+
+			a {
+				font-size: 1rem;
+				padding-left: 25px;
+				color: #26bbff;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+			#sign-in-first {
+				letter-spacing: 2px;
+				font-size: 1.4rem;
+				font-weight: 600;
+				width: 100%;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				background-color: #444;
+				color: rgb(0, 0, 0);
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+
+				&:hover {
+					background-color: rgb(151, 148, 148);
+				}
+			}
+		}
+		.con_other_reg {
+			margin-bottom: 20px;
+		}
+		.reg-other {
+			justify-self: center;
+			display: flex;
+			font-size: 1rem;
+			padding-bottom: 10px;
+			&::before,
+			&::after {
+				margin: 0 10px;
+				content: "\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0";
+				text-decoration: line-through;
+			}
+		}
+	}
+	#switch-to-login,
+	#switch-to-register {
+		margin-bottom: 5px;
+		font-size: 1.2rem;
+		span {
+			color: #26bbff;
+			cursor: pointer;
+		}
+	}
+}
+.basket {
+	position: relative;
+}
+.counted {
+	display: none;
+
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	right: 0;
+	background-color: green;
+	color: #fff;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	&.active {
+		display: flex;
+	}
+}

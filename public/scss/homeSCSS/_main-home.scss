@@ -1,0 +1,45 @@
+// Змінні
+$back-color: rgb(199, 112, 14);
+$btn-color: rgb(202, 62, 20);
+$secondary-color: rgb(26, 24, 24);
+$border-color: rgb(255, 255, 255);
+$hover-color: rgb(75, 45, 12);
+$text-color: rgb(255, 255, 255);
+$button-padding: 10px 20px;
+$font-size-large: 1.2rem;
+$font-size-medium: 1rem;
+
+/// Variables
+$primary-color: #4caf50;
+$accent-color: #e91e63;
+$text-dark: #2d2d2d;
+$text-light: #666;
+$bg-card: #ffffff;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin responsive($breakpoint) {
+	@media (max-width: $breakpoint) {
+		@content;
+	}
+}
+
+button {
+	font-size: $font-size-large;
+	border-radius: 5px;
+	padding: $button-padding;
+	background-color: $secondary-color;
+	color: $text-color;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	transition: background-color 0.2s linear;
+
+	&:hover {
+		background-color: $hover-color;
+	}
+}
