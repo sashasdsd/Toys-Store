@@ -98,75 +98,7 @@ app.post('/google-auth', async (req, res) => {
 // Реєстрація та логін користувача
 const SECRET_KEY = process.env.JWT_SECRET; // Переконайтеся, що SECRET_KEY встановлено в змінних оточення
 
-// app.post('/login', async (req, res) => {
 
-// 	const { login, password } = req.body;
-
-// 	if (!login || !password) {
-// 		return res.status(400).json({ message: 'Всі поля обов’язкові!' });
-// 	}
-
-// 	try {
-// 		const [results] = await db.execute('SELECT * FROM users WHERE login = ?', [login]);
-
-// 		if (results.length === 0) {
-// 			// Якщо користувача не існує, хешуємо пароль і створюємо нового користувача
-// 			const hashedPassword = bcrypt.hashSync(password, 10);
-// 			const [insertResult] = await db.execute('INSERT INTO users (login, password) VALUES (?, ?)', [login, hashedPassword]);
-
-// 			// Генеруємо токен для нового користувача
-// 			const newUserId = insertResult.insertId;
-// 			const token = jwt.sign({ userId: newUserId }, SECRET_KEY, { expiresIn: '1h' });
-
-// 			return res.status(200).json({
-// 				success: true,
-// 				message: 'Користувач зареєстрований та успішно ввійшов!',
-// 				token,
-// 				user_id: newUserId
-// 			});
-// 		}
-
-// 		const user = results[0];
-// 		const isPasswordValid = bcrypt.compareSync(password, user.password);
-
-// 		if (!isPasswordValid) {
-// 			return res.status(401).json({ message: 'Невірний логін або пароль' });
-// 		}
-
-// 		const token = jwt.sign({ userId: user.user_id }, SECRET_KEY, { expiresIn: '1h' });
-
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Успішний вхід!',
-// 			token,
-// 			user_id: user.user_id
-// 		});
-
-// 	} catch (err) {
-// 		console.error(err);
-// 		res.status(500).json({ message: 'Помилка сервера', error: err.message });
-// 	}
-// });
-
-
-// API для отримання user_id за login
-
-
-
-// // Новий ендпоїнт для отримання малюнків (з перевіркою токена)
-// app.get('/api/drawings', authenticateToken, async (req, res) => {
-// 	try {
-// 		const userId = req.user.userId; // Отримуємо з токена
-// 		const [drawings] = await db.execute(
-// 			'SELECT * FROM drawings WHERE user_id = ?',
-// 			[userId]
-// 		);
-// 		res.json(drawings);
-// 	} catch (err) {
-// 		console.error(err);
-// 		res.status(500).json({ message: 'Помилка завантаження малюнків' });
-// 	}
-// });
 
 app.post('/register', async (req, res) => {
 	const { login, password, phone } = req.body;
