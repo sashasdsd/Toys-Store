@@ -3,13 +3,15 @@ const db = require('./db')
 const fs = require('fs');
 const { url } = require('inspector');
 
+
 // Токен вашого бота
-const token = '7559683851:AAF5M6jsf981NsrrfmxyXgsQXp0cbrAudRA';
+const token = process.env.TG_TOKEN;
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID;
 
 // Створюємо екземпляр бота
 const bot = new TelegramBot(token, { polling: true });
 
-const ADMIN_CHAT_ID = 860334573;
+
 
 
 // Команда /start

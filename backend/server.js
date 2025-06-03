@@ -19,7 +19,7 @@ dotenv.config();
 
 const app = express();
 const PORT = 3000;
-const CLIENT_ID = '285494070451-ml0edaoleldtqd4ramkdthd0k8kfgqdb.apps.googleusercontent.com';
+const CLIENT_ID = process.env.CLIENT_ID
 
 const client = new OAuth2Client(CLIENT_ID);
 let db;
